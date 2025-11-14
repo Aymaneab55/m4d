@@ -1,1676 +1,561 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameVault+ | Premium Mobile Games</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #8a2be2;
-            --primary-dark: #6a0dad;
-            --secondary: #00bfff;
-            --accent: #ff4081;
-            --success: #00e676;
-            --background: #0f0c29;
-            --surface: #1a1647;
-            --surface-light: #2a2463;
-            --text-primary: #f8f9fa;
-            --text-secondary: #b0b8d0;
-            --text-muted: #8a94b0;
-            --border: #2a2463;
-            --shadow: rgba(0, 0, 0, 0.4);
-            --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            --glow: 0 0 12px rgba(138, 43, 226, 0.25);
-            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
-            --gradient-surface: linear-gradient(145deg, var(--surface), var(--background));
-            --gradient-hero: linear-gradient(135deg, rgba(15, 12, 41, 0.95) 0%, rgba(26, 22, 71, 0.95) 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 14px;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--background) 0%, #1a1a2e 100%);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-text-size-adjust: 100%;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Header & Hero Section */
-        .hero {
-            background: var(--gradient-hero), 
-                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 1.2rem 1rem 1.8rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            min-height: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 0.8rem;
-            margin-top: 0.3rem;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            box-shadow: var(--glow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-icon::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0.3) 0%,
-                rgba(255, 255, 255, 0) 80%
-            );
-            transform: rotate(30deg);
-        }
-
-        .logo-text {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 0.5px;
-            position: relative;
-        }
-
-        .logo-text::after {
-            content: "+";
-            position: absolute;
-            top: -4px;
-            right: -12px;
-            font-size: 0.8rem;
-            color: var(--accent);
-        }
-
-        .tagline {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            max-width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0 0.5rem;
-            line-height: 1.5;
-        }
-
-        .value-props {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 0.6rem;
-            margin: 1.2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .value-prop {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            padding: 0.4rem 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .value-prop:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .value-prop i {
-            color: var(--success);
-            font-size: 0.8rem;
-        }
-
-        /* Search Bar */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 1.2rem auto;
-            max-width: 100%;
-            padding: 0 0.5rem;
-        }
-
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-            max-width: 400px;
-        }
-
-        #searchInput {
-            padding: 0.8rem 0.8rem 0.8rem 2.5rem;
-            font-size: 0.9rem;
-            width: 100%;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: rgba(26, 22, 71, 0.7);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-            -webkit-appearance: none;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #searchInput:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2), var(--glow);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 0.9rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* CTA Buttons */
-        .cta-btn {
-            background: var(--gradient-primary);
-            border: none;
-            padding: 0.8rem 1.8rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px var(--shadow);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0 auto;
-            min-height: 42px;
-            touch-action: manipulation;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .cta-btn:hover::before {
-            left: 100%;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
-        }
-
-        .cta-btn:active {
-            transform: translateY(-1px);
-        }
-
-        /* Games Section */
-        .games-section {
-            padding: 1.5rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            padding: 0 0.5rem;
-        }
-
-        .section-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.4;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-            margin-top: 1.2rem;
-        }
-
-        /* Game Cards - Compact Design with Centered Logo */
-        .game-card {
-            background: var(--gradient-surface);
-            border-radius: 12px;
-            padding: 0.8rem;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: var(--card-shadow);
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            min-height: 150px;
-            aspect-ratio: 3/4;
-        }
-
-        .game-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-        }
-
-        .game-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25), var(--glow);
-        }
-
-        .game-card:active {
-            transform: translateY(-2px);
-        }
-
-        .game-logo-container {
-            width: 70px;
-            height: 70px;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 0.8rem;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--primary);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .game-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            padding: 5px;
-        }
-
-        .game-card:hover .game-logo {
-            transform: scale(1.08);
-        }
-
-        .game-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-        }
-
-        .game-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1.2;
-            margin-bottom: 0.4rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            max-height: 2.4rem;
-        }
-
-        .game-version {
-            font-size: 0.7rem;
-            color: var(--accent);
-            font-weight: 600;
-            background: rgba(255, 64, 129, 0.1);
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
-            display: inline-block;
-        }
-
-        /* Platform Selection Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 12, 41, 0.95);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .platform-modal {
-            background: var(--gradient-surface);
-            padding: 1.2rem;
-            border-radius: 14px;
-            text-align: center;
-            max-width: 90%;
-            width: 100%;
-            border: 1px solid var(--border);
-            box-shadow: 0 15px 30px var(--shadow), var(--glow);
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-            backdrop-filter: blur(10px);
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .platform-modal img {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            margin-bottom: 0.6rem;
-            border: 2px solid var(--primary);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .platform-modal h2 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            line-height: 1.3;
-            font-weight: 700;
-        }
-
-        .platform-modal p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-        }
-
-        .platform-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 0.7rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .platform-btn {
-            background: var(--gradient-primary);
-            border: none;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            min-height: 42px;
-            touch-action: manipulation;
-            box-shadow: 0 3px 8px rgba(138, 43, 226, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .platform-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .platform-btn:hover::before {
-            left: 100%;
-        }
-
-        .platform-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(138, 43, 226, 0.4);
-        }
-
-        .platform-btn:active {
-            transform: scale(0.98);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            touch-action: manipulation;
-            backdrop-filter: blur(10px);
-        }
-
-        .close-btn:hover {
-            background: rgba(255,255,255,0.2);
-            color: var(--text-primary);
-        }
-
-        .close-btn:active {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* Locker System */
-        .locker-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 12, 41, 0.98);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            backdrop-filter: blur(10px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .locker-box {
-            width: 100%;
-            max-width: 95%;
-            max-height: 90vh;
-            background: var(--gradient-surface);
-            padding: 1rem;
-            border-radius: 14px;
-            text-align: center;
-            color: var(--text-primary);
-            box-shadow: 0 15px 30px var(--shadow), var(--glow);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--border);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            backdrop-filter: blur(10px);
-            animation: slideUp 0.4s ease;
-        }
-
-        .locker-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.7rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .locker-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.8rem;
-        }
-
-        .locker-box h2 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-            line-height: 1.3;
-        }
-
-        .cta-strong {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 0.7rem;
-            line-height: 1.4;
-            background: rgba(255, 64, 129, 0.1);
-            padding: 0.5rem;
-            border-radius: 5px;
-            border-left: 2px solid var(--accent);
-        }
-
-        .game-preview-locker {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.7rem;
-            text-align: left;
-            background: var(--background);
-            padding: 0.6rem;
-            border-radius: 6px;
-            border-left: 2px solid var(--primary);
-        }
-
-        .game-preview-locker img {
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px var(--shadow);
-            border: 2px solid var(--primary);
-        }
-
-        .game-preview-content h3 {
-            margin: 0;
-            font-size: 0.8rem;
-            color: var(--text-primary);
-            line-height: 1.3;
-        }
-
-        .file-info {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            margin-top: 0.15rem;
-        }
-
-        .platform-badge {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.12rem 0.35rem;
-            border-radius: 6px;
-            font-size: 0.5rem;
-            font-weight: bold;
-            margin-top: 0.15rem;
-        }
-
-        .progress-container {
-            margin: 0.7rem 0;
-            background: var(--background);
-            padding: 0.6rem;
-            border-radius: 5px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.3rem;
-            font-size: 0.65rem;
-            color: var(--text-muted);
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: var(--surface-light);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 0.3rem;
-        }
-
-        #progressFill {
-            width: 0%;
-            height: 100%;
-            background: var(--gradient-primary);
-            transition: width 0.4s ease;
-            border-radius: 3px;
-        }
-
-        .progress-text {
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #statusMessage {
-            margin-top: 0.6rem;
-            font-weight: bold;
-            font-size: 0.65rem;
-            color: var(--primary);
-            min-height: 14px;
-            line-height: 1.4;
-            background: rgba(138, 43, 226, 0.1);
-            padding: 0.4rem;
-            border-radius: 4px;
-        }
-
-        .locker-close-btn {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            font-size: 1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            z-index: 10;
-            touch-action: manipulation;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .locker-close-btn:hover {
-            background: rgba(255,255,255,0.2);
-            color: var(--text-primary);
-        }
-
-        .locker-close-btn:active {
-            background: rgba(255,85,85,0.2);
-        }
-
-        .offers-section {
-            margin-top: 0.7rem;
-        }
-
-        .offers-section h3 {
-            color: var(--primary);
-            margin-bottom: 0.6rem;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            justify-content: center;
-        }
-
-        #offersList {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .offer-card {
-            background: var(--gradient-surface);
-            border: 1px solid var(--primary);
-            padding: 0.7rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 1px 4px rgba(138, 43, 226, 0.2);
-            min-height: 50px;
-            touch-action: manipulation;
-        }
-
-        .offer-card:hover {
-            background: linear-gradient(145deg, var(--surface-light), var(--surface));
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 6px rgba(138, 43, 226, 0.3);
-        }
-
-        .offer-card:active {
-            transform: translateY(0);
-        }
-
-        .offer-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: 100%;
-            background: var(--gradient-primary);
-        }
-
-        .offer-content {
-            flex: 1;
-            text-align: left;
-            min-width: 0;
-        }
-
-        .offer-title {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.15rem;
-            line-height: 1.3;
-            word-wrap: break-word;
-        }
-
-        .offer-details {
-            display: flex;
-            gap: 0.3rem;
-            font-size: 0.55rem;
-            color: var(--text-muted);
-            flex-wrap: wrap;
-        }
-
-        .offer-detail {
-            display: flex;
-            align-items: center;
-            gap: 0.15rem;
-            white-space: nowrap;
-        }
-
-        .offer-badge {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 0.12rem 0.35rem;
-            border-radius: 5px;
-            font-size: 0.5rem;
-            font-weight: bold;
-            white-space: nowrap;
-            box-shadow: 0 1px 2px rgba(138, 43, 226, 0.3);
-        }
-
-        .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: 0.6rem;
-            margin-top: 0.7rem;
-            padding-top: 0.7rem;
-            border-top: 1px solid var(--border);
-            flex-wrap: wrap;
-        }
-
-        .trust-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            font-size: 0.55rem;
-            color: var(--text-muted);
-        }
-
-        .trust-badge i {
-            color: var(--success);
-            font-size: 0.6rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--gradient-surface);
-            padding: 1.5rem 1rem 1rem;
-            border-top: 1px solid var(--border);
-            margin-top: 1.2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .footer-logo-text {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-tagline {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            text-align: center;
-            max-width: 500px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .footer-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--accent);
-        }
-
-        .copyright {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            text-align: center;
-            margin-top: 0.7rem;
-            padding-top: 0.7rem;
-            border-top: 1px solid var(--border);
-            width: 100%;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 360px) {
-            .games-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.6rem;
-            }
-            
-            .game-card {
-                min-height: 140px;
-                padding: 0.6rem;
-            }
-            
-            .game-logo-container {
-                width: 60px;
-                height: 60px;
-                margin-bottom: 0.6rem;
-            }
-            
-            .game-title {
-                font-size: 0.75rem;
-            }
-        }
-
-        @media (min-width: 480px) {
-            .hero {
-                padding: 1.5rem 1rem 2rem;
-            }
-            
-            .logo {
-                margin-bottom: 0.8rem;
-            }
-            
-            .logo-icon {
-                width: 38px;
-                height: 38px;
-            }
-            
-            .logo-text {
-                font-size: 1.5rem;
-            }
-            
-            .games-grid {
-                gap: 1rem;
-            }
-            
-            .game-card {
-                min-height: 160px;
-                padding: 0.9rem;
-            }
-            
-            .game-logo-container {
-                width: 75px;
-                height: 75px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .hero {
-                padding: 2rem 2rem 2.5rem;
-            }
-            
-            .value-props {
-                flex-direction: row;
-                gap: 1rem;
-            }
-            
-            .games-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1rem;
-            }
-            
-            .game-card {
-                min-height: 170px;
-            }
-            
-            .game-logo-container {
-                width: 80px;
-                height: 80px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .games-grid {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 1rem;
-            }
-            
-            .footer-content {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-            }
-            
-            .footer-tagline {
-                text-align: left;
-                max-width: 300px;
-            }
-        }
-
-        /* Safe area insets for notch phones */
-        @supports(padding: max(0px)) {
-            .hero, .games-section, .footer {
-                padding-left: max(1rem, env(safe-area-inset-left));
-                padding-right: max(1rem, env(safe-area-inset-right));
-            }
-            
-            .hero {
-                padding-top: max(1.2rem, env(safe-area-inset-top));
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GameVault+ | Premium Mobile Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --primary:#8a2be2;
+      --secondary:#00bfff;
+      --accent:#ff4081;
+      --background:#0f0c29;
+      --surface:#1a1647;
+      --surface-light:#2a2463;
+      --text-primary:#f8f9fa;
+      --text-secondary:#b0b8d0;
+      --text-muted:#8a94b0;
+      --border:#2a2463;
+      --shadow:rgba(0,0,0,0.35);
+      --card-shadow:0 6px 15px rgba(0,0,0,0.12);
+      --glow:0 0 12px rgba(138,43,226,0.18);
+      --gradient-primary:linear-gradient(135deg,var(--primary),var(--secondary));
+      --gradient-surface:linear-gradient(145deg,var(--surface),var(--background));
+      --gradient-hero:linear-gradient(135deg, rgba(15,12,41,0.95) 0%, rgba(26,22,71,0.95) 100%);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:14px}
+    body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--background) 0%,#1a1a2e 100%);color:var(--text-primary);-webkit-text-size-adjust:100%}
+
+    /* Header / Hero */
+    .hero{background:var(--gradient-hero),url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;padding:1.2rem 1rem 1.8rem;text-align:center;border-bottom:1px solid var(--border)}
+    .logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:.8rem;margin-top:.3rem}
+    .logo-icon{width:36px;height:36px;background:var(--gradient-primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:var(--glow)}
+    .logo-text{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,var(--text-primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .tagline{font-size:.9rem;color:var(--text-secondary);margin-bottom:1rem;padding:0 .5rem}
+    .value-props{display:flex;flex-direction:column;gap:.6rem;margin:1.2rem 0;align-items:center}
+    .value-prop{display:flex;align-items:center;gap:.5rem;color:var(--text-secondary);font-size:.8rem;padding:.4rem .8rem;border-radius:16px;background:rgba(255,255,255,0.05)}
+    .search-container{display:flex;justify-content:center;margin:1.2rem auto;padding:0 .5rem}
+    .search-wrapper{position:relative;max-width:400px;width:100%}
+    #searchInput{padding:.8rem .8rem .8rem 2.5rem;width:100%;border-radius:10px;border:1px solid var(--border);background:rgba(26,22,71,0.7);color:var(--text-primary)}
+    .search-icon{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-muted)}
+    .cta-btn{background:var(--gradient-primary);border:none;padding:.8rem 1.8rem;border-radius:10px;color:#fff;font-weight:600;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 5px 15px var(--shadow)}
+
+    .games-section{padding:1.5rem 1rem;max-width:1200px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:1.5rem}
+    .section-title{font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;background:linear-gradient(135deg,var(--text-primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .section-subtitle{color:var(--text-secondary);font-size:.9rem;max-width:600px;margin:0 auto}
+
+    /* Grid: 2 (small) - 2 (mid) - 3 (large) */
+    .games-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-top:1.2rem}
+
+    .game-card{background:var(--gradient-surface);border-radius:12px;padding:.8rem;border:1px solid var(--border);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;min-height:150px;box-shadow:var(--card-shadow)}
+    .game-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient-primary)}
+    .game-logo-container{width:70px;height:70px;border-radius:14px;overflow:hidden;margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;border:2px solid var(--primary);background:rgba(255,255,255,0.05)}
+    .game-logo{width:100%;height:100%;object-fit:contain;padding:5px;display:block}
+    .game-info{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%}
+    .game-title{font-size:.8rem;font-weight:700;color:var(--text-primary);line-height:1.2;margin-bottom:.4rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .game-version{font-size:.7rem;color:var(--accent);font-weight:600;background:rgba(255,64,129,0.1);padding:.25rem .5rem;border-radius:6px}
+
+    /* Modal / Locker base */
+    .modal-overlay, .locker-overlay{display:none;position:fixed;inset:0;z-index:1000;justify-content:center;align-items:center;padding:1rem;backdrop-filter:blur(6px);background:rgba(15,12,41,0.92)}
+    .platform-modal{width:100%;max-width:560px;background:var(--gradient-surface);border-radius:12px;padding:1rem;border:1px solid var(--border);box-shadow:0 14px 30px rgba(0,0,0,0.35),var(--glow);text-align:center}
+    .close-btn{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border:none;color:var(--text-muted);cursor:pointer}
+    .close-btn:hover{background:rgba(255,255,255,0.12);color:var(--text-primary)}
+
+    /* --- USER REQUEST: make modal logo larger, remove shadow/background so logo is clear --- */
+    .game-box-thumbnail{
+      width:140px;            /* increased size for modal */
+      height:180px;
+      border-radius:12px;
+      overflow:hidden;
+      margin:0 auto .6rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:transparent; /* important: transparent so no black/colored backdrop */
+      box-shadow:none;        /* remove shadow so logo is clear */
+      position:relative;
+    }
+    .game-box-thumbnail::after{ content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; /* subtle ring if needed */ box-shadow: 0 0 0 2px rgba(138,43,226,0.04); }
+
+    /* inner image for modal: larger, no shadow, transparent background */
+    .game-box-thumbnail img.modal-logo{
+      display:block;
+      width:auto;
+      height:auto;
+      max-width:90%;     /* larger occupancy */
+      max-height:90%;
+      object-fit:contain;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;    /* remove any inner shadow */
+      border:none;        /* remove any border */
+    }
+
+    .platform-modal h2{font-size:1.08rem;color:var(--text-primary);margin:.25rem 0}
+    .platform-modal p{color:var(--text-secondary);font-size:.95rem;margin-bottom:.6rem}
+    .platform-buttons{display:flex;flex-direction:column;gap:.6rem}
+    .platform-btn{background:var(--gradient-primary);border:none;padding:.72rem;border-radius:10px;color:#fff;font-weight:700;cursor:pointer;font-size:.98rem;box-shadow:0 4px 10px rgba(138,43,226,0.16)}
+
+    /* Locker styling: make locker preview logo a bit bigger than before and remove background/shadow */
+    .locker-box{width:100%;max-width:520px;background:var(--gradient-surface);border-radius:12px;padding:.9rem;border:1px solid var(--border);box-shadow:0 14px 30px rgba(0,0,0,0.35),var(--glow);color:var(--text-primary)}
+    .locker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+    .locker-logo{display:flex;align-items:center;gap:.4rem;color:var(--primary);font-weight:700;font-size:.9rem}
+    .locker-close-btn{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border:none;color:var(--text-muted);cursor:pointer}
+    .locker-close-btn:hover{background:rgba(255,255,255,0.12);color:var(--text-primary)}
+
+    .game-preview-locker{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem;background:transparent;padding:.4rem;border-radius:8px}
+    .game-preview-locker .game-box-thumbnail.small{width:64px;height:92px;border-radius:10px;background:transparent;box-shadow:none;margin:0} /* larger than before, no shadow */
+    .game-preview-locker img{width:auto !important;height:auto !important;max-width:92%;max-height:92%;object-fit:contain;border-radius:0;background:transparent;border:none}
+
+    .locker-box h2{font-size:1rem;color:var(--primary);margin:.35rem 0}
+    .cta-strong{font-size:.88rem;padding:.42rem;border-radius:6px;background:rgba(255,64,129,0.08);color:var(--accent);font-weight:700}
+
+    .progress-container{margin:.7rem 0;background:var(--background);padding:.5rem;border-radius:6px}
+    .progress-header{display:flex;justify-content:space-between;font-size:.78rem;color:var(--text-muted);margin-bottom:.3rem}
+    .progress-bar{height:6px;background:var(--surface-light);border-radius:6px;overflow:hidden}
+    #progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:width .35s ease}
+    #statusMessage{font-weight:700;color:var(--primary);background:rgba(138,43,226,0.06);padding:.38rem;border-radius:6px;font-size:.9rem;margin-top:.36rem}
+
+    .offers-section{margin-top:.8rem}
+    .offers-section h3{color:var(--primary);font-size:.95rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;justify-content:center}
+    #offersList{display:flex;flex-direction:column;gap:.45rem}
+    .offer-card{background:var(--gradient-surface);padding:.62rem;border-radius:8px;border:1px solid rgba(138,43,226,0.06);display:flex;justify-content:space-between;align-items:center;gap:.5rem;cursor:pointer;font-size:.9rem}
+    .offer-title{font-weight:700;color:var(--text-primary);font-size:.9rem}
+    .offer-details{font-size:.82rem;color:var(--text-muted);display:flex;gap:.5rem}
+
+    /* Responsive - keep 2 cols mid, 3 on large */
+    @media(min-width:480px){ .games-grid{grid-template-columns:repeat(2,1fr)} }
+    @media(min-width:768px){ .games-grid{grid-template-columns:repeat(3,1fr)} }
+
+    @media(max-width:480px){
+      .platform-modal,.locker-box{max-width:94%;padding:.7rem;border-radius:10px}
+      .game-box-thumbnail{width:100px;height:130px}
+      .game-preview-locker .game-box-thumbnail.small{width:56px;height:80px}
+      .platform-btn{padding:.65rem;font-size:.92rem}
+      .offer-card{font-size:.85rem;padding:.52rem}
+      #statusMessage{font-size:.84rem;padding:.42rem}
+    }
+  </style>
 </head>
 <body>
 
-<!-- Hero Section -->
-<section class="hero">
-  <div class="logo">
-    <div class="logo-icon">
-      <i class="fas fa-gamepad"></i>
+  <section class="hero">
+    <div class="logo">
+      <div class="logo-icon"><i class="fas fa-gamepad"></i></div>
+      <div class="logo-text">GameVault</div>
     </div>
-    <div class="logo-text">GameVault</div>
-  </div>
-  
-  <p class="tagline">Download premium mobile games with exclusive content. All games are safe, verified, and regularly updated.</p>
-  
-  <div class="value-props">
-    <div class="value-prop">
-      <i class="fas fa-shield-check"></i>
-      <span>100% Safe & Verified</span>
+
+    <p class="tagline">Download premium mobile games with exclusive content. All games are safe, verified, and regularly updated.</p>
+
+    <div class="value-props">
+      <div class="value-prop"><i class="fas fa-shield-check"></i><span>100% Safe & Verified</span></div>
+      <div class="value-prop"><i class="fas fa-bolt"></i><span>Regular Updates</span></div>
+      <div class="value-prop"><i class="fas fa-star"></i><span>Premium Features</span></div>
     </div>
-    <div class="value-prop">
-      <i class="fas fa-bolt"></i>
-      <span>Regular Updates</span>
-    </div>
-    <div class="value-prop">
-      <i class="fas fa-star"></i>
-      <span>Premium Features</span>
-    </div>
-  </div>
 
-  <!-- Search Bar -->
-  <div class="search-container">
-    <div class="search-wrapper">
-      <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" placeholder="Search for games...">
-    </div>
-  </div>
-
-  <button class="cta-btn" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">
-    <i class="fas fa-rocket"></i>
-    Explore Premium Games
-  </button>
-</section>
-
-<!-- Games Section -->
-<section class="games-section" id="games">
-  <div class="section-header">
-    <h2 class="section-title">Premium Game Collection</h2>
-    <p class="section-subtitle">Hand-picked games with enhanced features and exclusive content</p>
-  </div>
-
-  <div class="games-grid" id="gamesGrid">
-    <!-- Games will be loaded here -->
-  </div>
-</section>
-
-<!-- Platform Selection Modal -->
-<div id="platformModal" class="modal-overlay">
-  <div class="platform-modal">
-    <button class="close-btn" onclick="closePlatformModal()">×</button>
-    <img id="modalGameImg" src="" alt="Game Icon">
-    <h2 id="modalGameTitle">Select Platform</h2>
-    <p>Choose your device platform to continue</p>
-    <div class="platform-buttons">
-      <button class="platform-btn" id="androidBtn">
-        <i class="fab fa-android"></i> Android
-      </button>
-      <button class="platform-btn" id="iosBtn">
-        <i class="fab fa-apple"></i> iOS
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Locker System -->
-<div id="locker" class="locker-overlay">
-  <div class="locker-box">
-    <span class="locker-close-btn" onclick="closeLocker()">×</span>
-    
-    <div class="locker-header">
-      <div class="locker-logo">
-        <i class="fas fa-shield-alt"></i>
-        <span>GameVault+ Secure Download</span>
+    <div class="search-container">
+      <div class="search-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input id="searchInput" type="text" placeholder="Search for games..." />
       </div>
     </div>
-    
-    <div class="game-preview-locker" id="gamePreviewLocker"></div>
-    
-    <h2>⚡ Download Verification</h2>
-    <p class="cta-strong">Complete one quick offer to unlock your download + exclusive bonus content!</p>
-    
-    <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-header">
-        <span>Security Check</span>
-        <span id="progressPercent">0%</span>
+
+    <button class="cta-btn" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">
+      <i class="fas fa-rocket"></i> Explore Premium Games
+    </button>
+  </section>
+
+  <section class="games-section" id="games">
+    <div class="section-header">
+      <h2 class="section-title">Premium Game Collection</h2>
+      <p class="section-subtitle">Hand-picked games with enhanced features and exclusive content</p>
+    </div>
+
+    <div class="games-grid" id="gamesGrid"></div>
+  </section>
+
+  <!-- Platform modal -->
+  <div id="platformModal" class="modal-overlay" aria-hidden="true">
+    <div class="platform-modal" role="dialog" aria-modal="true" aria-labelledby="modalGameTitle">
+      <button class="close-btn" onclick="closePlatformModal()" aria-label="Close">×</button>
+
+      <div class="game-box-thumbnail" id="modalThumbnail">
+        <img id="modalGameImg" class="modal-logo" src="" alt="Game Logo" />
       </div>
-      <div class="progress-bar">
-        <div id="progressFill"></div>
-      </div>
-      <div class="progress-text">
-        <span>Preparing download...</span>
-        <span>Secure</span>
+
+      <h2 id="modalGameTitle">Select Platform</h2>
+      <p>Choose your device platform to continue</p>
+
+      <div class="platform-buttons">
+        <button class="platform-btn" id="androidBtn"><i class="fab fa-android"></i> Android</button>
+        <button class="platform-btn" id="iosBtn"><i class="fab fa-apple"></i> iOS</button>
       </div>
     </div>
-    
-    <p id="statusMessage">🔄 Initializing secure download...</p>
-    
-    <!-- Offers Section -->
-    <div id="offersSection" class="offers-section">
-      <h3><i class="fas fa-gift"></i> Choose Your Offer</h3>
-      <div id="offersList"></div>
-      
-      <div class="trust-badges">
-        <div class="trust-badge">
-          <i class="fas fa-shield-check"></i>
-          <span>100% Secure</span>
+  </div>
+
+  <!-- Locker -->
+  <div id="locker" class="locker-overlay" aria-hidden="true">
+    <div class="locker-box" role="dialog" aria-modal="true">
+      <button class="locker-close-btn" onclick="closeLocker()" aria-label="Close locker">×</button>
+
+      <div class="locker-header">
+        <div class="locker-logo">
+          <i class="fas fa-shield-alt"></i>
+          <span>GameVault+ Secure Download</span>
         </div>
-        <div class="trust-badge">
-          <i class="fas fa-clock"></i>
-          <span>1-3 Minutes</span>
+      </div>
+
+      <div class="game-preview-locker" id="gamePreviewLocker"></div>
+
+      <h2>⚡ Download Verification</h2>
+      <p class="cta-strong">Complete one quick offer to unlock your download + exclusive bonus content!</p>
+
+      <div class="progress-container">
+        <div class="progress-header">
+          <span>Security Check</span>
+          <span id="progressPercent">0%</span>
         </div>
-        <div class="trust-badge">
-          <i class="fas fa-download"></i>
-          <span>Instant Access</span>
+        <div class="progress-bar"><div id="progressFill"></div></div>
+        <div style="display:flex;justify-content:space-between;color:var(--text-muted);font-size:.82rem;margin-top:.32rem">
+          <span>Preparing download...</span>
+          <span>Secure</span>
+        </div>
+      </div>
+
+      <p id="statusMessage">🔄 Initializing secure download...</p>
+
+      <div id="offersSection" class="offers-section" style="display:none">
+        <h3><i class="fas fa-gift"></i> Choose Your Offer</h3>
+        <div id="offersList"></div>
+
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem">
+          <div style="display:flex;align-items:center;gap:.35rem;color:var(--text-muted);font-size:.85rem"><i class="fas fa-shield-check" style="color:var(--primary)"></i><span>100% Secure</span></div>
+          <div style="display:flex;align-items:center;gap:.35rem;color:var(--text-muted);font-size:.85rem"><i class="fas fa-clock"></i><span>1-3 Minutes</span></div>
+          <div style="display:flex;align-items:center;gap:.35rem;color:var(--text-muted);font-size:.85rem"><i class="fas fa-download"></i><span>Instant Access</span></div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-content">
-    <div class="footer-logo">
-      <div class="logo-icon">
-        <i class="fas fa-gamepad"></i>
+  <footer class="footer" style="background:var(--gradient-surface);padding:1.2rem 1rem;margin-top:1.2rem;border-top:1px solid var(--border)">
+    <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:.8rem">
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <div class="logo-icon" style="width:30px;height:30px"><i class="fas fa-gamepad"></i></div>
+        <div style="font-family:'Rajdhani',sans-serif;font-weight:700">GameVault</div>
       </div>
-      <div class="footer-logo-text">GameVault</div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+        <a class="footer-link" href="#">Privacy Policy</a>
+        <a class="footer-link" href="#">Terms of Service</a>
+        <a class="footer-link" href="#">Contact Us</a>
+        <a class="footer-link" href="#">About</a>
+      </div>
     </div>
-    <p class="footer-tagline">Your trusted source for premium mobile games with exclusive content</p>
-    <div class="footer-links">
-      <a href="#" class="footer-link">Privacy Policy</a>
-      <a href="#" class="footer-link">Terms of Service</a>
-      <a href="#" class="footer-link">Contact Us</a>
-      <a href="#" class="footer-link">About</a>
-    </div>
-  </div>
-  <div class="copyright">
-    &copy; 2023 GameVault+. All rights reserved. Partnered with Doublemedia CPA.
-  </div>
-</footer>
+    <div style="text-align:center;margin-top:.7rem;color:var(--text-muted);font-size:.85rem">&copy; 2023 GameVault+. All rights reserved. Partnered with Doublemedia CPA.</div>
+  </footer>
 
-<script>
-  // Game Data with Versions
-  const games = [
-    {
-      title: "BeamNG.drive Mobile", 
-      img: "https://avatars.githubusercontent.com/u/6404024?s=280&v=4", 
-      version: "v0.32.0.0"
-    },
-    {
-      title: "Dispatch Mobile", 
-      img: "https://i.postimg.cc/QNc8k2D9/Dispatch-art-jpg.webp", 
-      version: "v1.5.2"
-    },
-    {
-      title: "Am a Monkey (No Ads", 
-      img: "https://i.postimg.cc/Qx3V7hRX/Untitled-design-1.png", 
-      version: "v1.0.4"
-    },
-    {
-      title: "GTA V Mobile", 
-      img: "https://i.pinimg.com/736x/8f/01/03/8f010359c57da7850e723fa17a53b55e.jpg", 
-      version: "v1.0.3095/1.68"
-    },
-    {
-      title: "8 Ball Pool Aimbot MOD", 
-      img: "https://www.latestmodapks.com/wp-content/uploads/2022/10/com.miniclip.eightballpool.jpg", 
-      version: "v5.15.2"
-    },
-    {
-      title: "Gorilla Tag Mobile", 
-      img: "https://img.tapimg.net/market/images/181c7a899a46a98dd93d07da84847a5f.jpg", 
-      version: "v1.2.5"
-    },
-    {
-      title: "Forza Horizon Mobile", 
-      img: "https://images.seeklogo.com/logo-png/40/1/forza-horizon-5-logo-png_seeklogo-406612.png", 
-      version: "v2.0.1"
-    },
-    {
-      title: "Euro Truck Simulator 2", 
-      img: "https://i.pinimg.com/564x/32/ae/e5/32aee5919f1c4e81da58627d21b3323a.jpg", 
-      version: "v1.48.2"
-    },
-    {
-      title: "Hitman: Absolution Mobile", 
-      img: "https://play-lh.googleusercontent.com/sZ2vcnPx2dGILYDxX4e6VIFZq1lWdBvekVFSGphJa2Lnreo7ghXsaP11nIKq77Rl775JN6zgf7v9whOmKwpWMoY", 
-      version: "v3.14.1"
-    },
-    {
-      title: "Rooftops & Alleys", 
-      img: "https://i.postimg.cc/W1bm7TRt/Fh-T2ixl-Wyl9-TPswg-KLF0j-Pp9j-Nuq.png", 
-      version: "v2.3.0"
-    },
-    {
-      title: "Fortnite Mobile", 
-      img: "https://pbs.twimg.com/media/GxGV7xRXMAAPHh0.jpg", 
-      version: "v27.10.0"
-    },
-    {
-      title: "WWE 2K25 Mobile", 
-      img: "https://play-lh.googleusercontent.com/uD9hXMYt6fqwiSnTd6vqj0pi5JfTvIHbZR9OFllSPcuG_V1iGwNOJ26wwXd1b0z89zp-=w240-h480-rw", 
-      version: "v1.5.0"
-    },
-    {
-      title: "Project Brutality Doom", 
-      img: "https://static.doomworld.com/monthly_2023_06/51f3b0e3dcd1cf493fe29ac632aeec39.jpg.88231b2c110b31f13555d274b67c763e.jpg", 
-      version: "v0.1.0"
-    },
-    {
-      title: "Highway Racer Pro", 
-      img: "https://play-lh.googleusercontent.com/hNugD_lGLRZAWnEss_Ue66J2NH2M2rNLJODh8Bpr8EGyOYZe05epjQ3EK2WdtmJsOoc", 
-      version: "v4.5.1"
-    },
-    {
-      title: "CarX Street", 
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4pqJlpezWAKhl0bwwWy1GIc_zVOGXjHvz9Q&amp;s", 
-      version: "v1.2.3"
-    },
-    {
-      title: "Baseball 9 Mod", 
-      img: "https://i.postimg.cc/j254nVy3/e21d66a4-4e0a-4a5b-9521-397d4cb5d383.png", 
-      version: "v3.8.0"
-    },
-    {
-      title: "Hollow Knight Mobile", 
-      img: "https://i.postimg.cc/Vvj4G8nC/icon.webp", 
-      version: "v1.5.78"
-    },
-    {
-      title: "Speed Stars", 
-      img: "https://i.postimg.cc/q7LSqhJv/Hard.png", 
-      version: "v2.1.0"
-    },
-    {
-      title: "Lamar Idle Vlogger", 
-      img: "https://i.postimg.cc/RFv1XQFq/Lamar-Idle-Vlogger-Mod-APK.webp", 
-      version: "v1.4.2"
-    },
-    {
-      title: "Snake Clash", 
-      img: "https://i.postimg.cc/ZqFX5FJT/71dded537746e75207450ca40f71d089ff02df7c47300f91f5a7522ec910bdc3_200.webp", 
-      version: "v3.7.1"
-    },
-    {
-      title: "Racing Ultimate", 
-      img: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80", 
-      version: "v2.0.5"
-    }
-  ];
-
-  // Current selection state
-  let currentGame = null;
-  let currentPlatform = null;
-  let progressInterval;
-
-  // Initialize everything when page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    initializeGames();
-    setupEventListeners();
-    console.log('GameVault+ Professional loaded successfully!');
-  });
-
-  // Initialize games grid
-  function initializeGames() {
-    const grid = document.getElementById("gamesGrid");
-    grid.innerHTML = '';
-    
-    games.forEach((game, index) => {
-      const gameCard = document.createElement('div');
-      gameCard.className = 'game-card';
-      gameCard.setAttribute('data-game-index', index);
-      gameCard.innerHTML = `
-        <div class="game-logo-container">
-          <img src="${game.img}" alt="${game.title}" class="game-logo" loading="lazy"/>
-        </div>
-        <div class="game-info">
-          <h3 class="game-title">${game.title}</h3>
-          <div class="game-version">${game.version}</div>
-        </div>
-      `;
-      grid.appendChild(gameCard);
-    });
-  }
-
-  // Setup event listeners
-  function setupEventListeners() {
-    // Game card click handlers
-    document.getElementById('gamesGrid').addEventListener('click', function(e) {
-      const gameCard = e.target.closest('.game-card');
-      if (gameCard) {
-        const gameIndex = gameCard.getAttribute('data-game-index');
-        openPlatformModal(gameIndex);
-      }
-    });
-
-    // Platform selection buttons
-    document.getElementById('androidBtn').addEventListener('click', function() {
-      selectPlatform('android');
-    });
-
-    document.getElementById('iosBtn').addEventListener('click', function() {
-      selectPlatform('ios');
-    });
-
-    // Search functionality
-    document.getElementById('searchInput').addEventListener('input', function() {
-      searchGames();
-    });
-  }
-
-  // Search function
-  function searchGames() {
-    const searchInput = document.getElementById("searchInput").value.toLowerCase();
-    const gameCards = document.querySelectorAll(".game-card");
-
-    gameCards.forEach(card => {
-      const gameTitle = card.querySelector(".game-title").textContent.toLowerCase();
-      if (gameTitle.includes(searchInput)) {
-        card.style.display = "flex";
-      } else {
-        card.style.display = "none";
-      }
-    });
-  }
-
-  // Platform Selection Modal
-  function openPlatformModal(gameIndex) {
-    const game = games[gameIndex];
-    console.log("Opening platform modal for:", game.title);
-    
-    currentGame = game;
-    document.getElementById('modalGameImg').src = game.img;
-    document.getElementById('modalGameTitle').textContent = game.title;
-    document.getElementById('platformModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closePlatformModal() {
-    document.getElementById('platformModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
-
-  function selectPlatform(platform) {
-    console.log("Platform selected:", platform);
-    currentPlatform = platform;
-    closePlatformModal();
-    openLocker();
-  }
-
-  // LOCKER FUNCTIONS
-  function openLocker() {
-    console.log("Opening locker for:", currentGame?.title, "Platform:", currentPlatform);
-    
-    if (!currentGame || !currentPlatform) {
-      console.error("No game or platform selected!");
-      return;
-    }
-    
-    document.body.style.overflow = "hidden";
-    document.getElementById("locker").style.display = "flex";
-    
-    // Hide offers section initially
-    document.getElementById("offersSection").style.display = "none";
-    
-    const platformText = currentPlatform === 'android' ? '🤖 Android' : '🍎 iOS';
-    const fileType = currentPlatform === 'android' ? 'APK + OBB Files' : 'IPA File';
-    const platformBadge = `<div class="platform-badge">${platformText}</div>`;
-    
-    document.getElementById("gamePreviewLocker").innerHTML = `
-      <img src="${currentGame.img}" alt="${currentGame.title}" />
-      <div class="game-preview-content">
-        <h3>${currentGame.title}</h3>
-        <p class="file-info">📦 ${fileType} • ${currentGame.version} • 🕒 Updated: Today</p>
-        ${platformBadge}
-      </div>`;
-      
-    // Start progress bar
-    startOptimizedProgressBar();
-  }
-
-  function startOptimizedProgressBar(){
-    let currentProgress = 0;
-    let fill = document.getElementById("progressFill");
-    let percent = document.getElementById("progressPercent");
-    let status = document.getElementById("statusMessage");
-    
-    const messages = [
-      "🔄 Checking device compatibility...",
-      "✅ Scanning for security threats...",
-      "🔐 Verifying file integrity...",
-      "⚡ Optimizing download speed...",
-      "🏁 Preparing game content..."
+  <script>
+    // Game data (kept)
+    const games = [
+      { title: "BeamNG.drive Mobile", img: "https://avatars.githubusercontent.com/u/6404024?s=280&v=4", version: "v0.32.0.0" },
+      { title: "Dispatch Mobile", img: "https://i.postimg.cc/QNc8k2D9/Dispatch-art-jpg.webp", version: "v1.5.2" },
+      { title: "Am a Monkey (No Ads", img: "https://i.postimg.cc/Qx3V7hRX/Untitled-design-1.png", version: "v1.0.4" },
+      { title: "GTA V Mobile", img: "https://i.pinimg.com/736x/8f/01/03/8f010359c57da7850e723fa17a53b55e.jpg", version: "v1.0.3095/1.68" },
+      { title: "8 Ball Pool Aimbot MOD", img: "https://www.latestmodapks.com/wp-content/uploads/2022/10/com.miniclip.eightballpool.jpg", version: "v5.15.2" },
+      { title: "Gorilla Tag Mobile", img: "https://img.tapimg.net/market/images/181c7a899a46a98dd93d07da84847a5f.jpg", version: "v1.2.5" },
+      { title: "Forza Horizon Mobile", img: "https://images.seeklogo.com/logo-png/40/1/forza-horizon-5-logo-png_seeklogo-406612.png", version: "v2.0.1" },
+      { title: "Euro Truck Simulator 2", img: "https://i.pinimg.com/564x/32/ae/e5/32aee5919f1c4e81da58627d21b3323a.jpg", version: "v1.48.2" },
+      { title: "Hitman: Absolution Mobile", img: "https://play-lh.googleusercontent.com/sZ2vcnPx2dGILYDxX4e6VIFZq1lWdBvekVFSGphJa2Lnreo7ghXsaP11nIKq77Rl775JN6zgf7v9whOmKwpWMoY", version: "v3.14.1" },
+      { title: "Rooftops & Alleys", img: "https://i.postimg.cc/W1bm7TRt/Fh-T2ixl-Wyl9-TPswg-KLF0j-Pp9j-Nuq.png", version: "v2.3.0" },
+      { title: "Fortnite Mobile", img: "https://pbs.twimg.com/media/GxGV7xRXMAAPHh0.jpg", version: "v27.10.0" },
+      { title: "WWE 2K25 Mobile", img: "https://play-lh.googleusercontent.com/uD9hXMYt6fqwiSnTd6vqj0pi5JfTvIHbZR9OFllSPcuG_V1iGwNOJ26wwXd1b0z89zp-=w240-h480-rw", version: "v1.5.0" },
+      { title: "Project Brutality Doom", img: "https://static.doomworld.com/monthly_2023_06/51f3b0e3dcd1cf493fe29ac632aeec39.jpg.88231b2c110b31f13555d274b67c763e.jpg", version: "v0.1.0" },
+      { title: "Highway Racer Pro", img: "https://play-lh.googleusercontent.com/hNugD_lGLRZAWnEss_Ue66J2NH2M2rNLJODh8Bpr8EGyOYZe05epjQ3EK2WdtmJsOoc", version: "v4.5.1" },
+      { title: "CarX Street", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4pqJlpezWAKhl0bwwWy1GIc_zVOGXjHvz9Q&amp;s", version: "v1.2.3" },
+      { title: "Baseball 9 Mod", img: "https://i.postimg.cc/j254nVy3/e21d66a4-4e0a-4a5b-9521-397d4cb5d383.png", version: "v3.8.0" },
+      { title: "Hollow Knight Mobile", img: "https://i.postimg.cc/Vvj4G8nC/icon.webp", version: "v1.5.78" },
+      { title: "Speed Stars", img: "https://i.postimg.cc/q7LSqhJv/Hard.png", version: "v2.1.0" },
+      { title: "Lamar Idle Vlogger", img: "https://i.postimg.cc/RFv1XQFq/Lamar-Idle-Vlogger-Mod-APK.webp", version: "v1.4.2" },
+      { title: "Snake Clash", img: "https://i.postimg.cc/ZqFX5FJT/71dded537746e75207450ca40f71d089ff02df7c47300f91f5a7522ec910bdc3_200.webp", version: "v3.7.1" },
+      { title: "Racing Ultimate", img: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80", version: "v2.0.5" }
     ];
-    
-    clearInterval(progressInterval);
-    progressInterval = setInterval(() => {
-      if(currentProgress >= 100){
-        clearInterval(progressInterval);
-        fill.style.width = "100%";
-        percent.textContent = "100%";
-        status.innerHTML = "✅ <strong>Ready! Choose an offer to download</strong>";
-        
-        // Show offers section when progress completes
-        document.getElementById("offersSection").style.display = "block";
-        
-        // Load offers after progress completes
-        loadOffers();
-      } else {
-        currentProgress += 4 + Math.random() * 5;
-        if(currentProgress > 100) currentProgress = 100;
-        fill.style.width = currentProgress + "%";
-        percent.textContent = Math.round(currentProgress) + "%";
-        
-        let msgIndex = Math.floor(currentProgress / 20);
-        if(msgIndex < messages.length) {
-          status.textContent = messages[msgIndex];
-        }
-      }
-    }, 120);
-  }
 
-  // LOAD OFFERS FROM YOUR ADBLUEMEDIA ACCOUNT
-  function loadOffers() {
-    if (!currentGame || !currentPlatform) return;
-    
-    const searchTerm = `${currentGame.title} ${currentPlatform}`;
-    console.log("Loading offers for:", searchTerm);
-    
-    document.getElementById("offersList").innerHTML = "<p>Loading offers...</p>";
-    
-    // Build the API URL with your credentials
-    const apiUrl = `https://dbj3fg9om9jaj.cloudfront.net/public/offers/feed.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&s1=${encodeURIComponent(searchTerm)}&s2=${encodeURIComponent(currentPlatform)}`;
-    
-    console.log("API Request:", apiUrl);
-    
-    // Fetch offers from AdBlueMedia
-    fetch(apiUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(offers => {
-        console.log("AdBlueMedia API Response:", offers);
-        
-        if (!offers || !Array.isArray(offers) || offers.length === 0) {
-          console.log("No offers received from AdBlueMedia, using fallback");
-          showFallbackOffers();
-          return;
-        }
-        
-        displayOffers(offers);
-      })
-      .catch(error => {
-        console.error("AdBlueMedia API Error:", error);
-        console.log("Using fallback offers due to API error");
-        showFallbackOffers();
-      });
-  }
+    let currentGame = null;
+    let currentPlatform = null;
+    let progressInterval = null;
 
-  function showFallbackOffers() {
-    const fallbackOffers = [
-      {
-        anchor: "Complete Quick Survey (1-2 minutes)",
-        url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&offer_id=survey1`,
-        type: "survey"
-      },
-      {
-        anchor: "Watch Short Video Ad (45-60 seconds)", 
-        url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&offer_id=video1`,
-        type: "video"
-      },
-      {
-        anchor: "Free App Trial (2-3 minutes)",
-        url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&offer_id=trial1`,
-        type: "trial"
-      },
-      {
-        anchor: "Quick Registration (1-2 minutes)",
-        url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&offer_id=register1`,
-        type: "registration"
-      }
-    ];
-    
-    displayOffers(fallbackOffers);
-  }
+    // AdBlue credentials (kept)
+    const ADBLUE_USER_ID = 504359;
+    const ADBLUE_API_KEY = "3b17a09c1ca2bba2d52ffadab4894374";
 
-  function displayOffers(offers) {
-    let html = "";
-    const badges = ["Recommended", "Easy", "Popular", "Quick"];
-    
-    // Show only 4 offers
-    offers.slice(0,4).forEach((offer, index) => {
-      const timeOptions = [60, 90, 120, 150];
-      const timeEstimate = timeOptions[index] || 120;
-      const successRate = 85 + Math.floor(Math.random() * 10);
-      const usersCompleted = Math.floor(Math.random() * 50000) + 20000;
-      const offerType = offer.type || ['survey', 'video', 'trial', 'registration'][index];
-      
-      // Use the actual offer URL from AdBlueMedia or fallback
-      const offerUrl = offer.url || `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&offer_id=${offer.id || 'default'}`;
-      
-      html += `
-      <div class="offer-card" onclick="selectOffer('${offerUrl}', '${currentGame.title.replace(/'/g, "\\'")}', '${currentPlatform}', '${offerType}', '${offer.anchor || "Quick Task"}')">
-        <div class="offer-content">
-          <div class="offer-title">${offer.anchor || "Complete Quick Task"}</div>
-          <div class="offer-details">
-            <div class="offer-detail">✅ ${successRate}% Success</div>
-            <div class="offer-detail">⏱ ${Math.floor(timeEstimate/60)} min</div>
-            <div class="offer-detail">👥 ${(usersCompleted/1000).toFixed(0)}K+ completed</div>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderGames();
+      attachListeners();
+    });
+
+    function renderGames(){
+      const grid = document.getElementById('gamesGrid');
+      grid.innerHTML = '';
+      games.forEach((g,i) => {
+        const el = document.createElement('div');
+        el.className = 'game-card';
+        el.dataset.index = i;
+        el.innerHTML = `
+          <div class="game-logo-container">
+            <img class="game-logo" src="${g.img}" alt="${escapeHtml(g.title)}" loading="lazy" />
           </div>
-        </div>
-        <div class="offer-badge">${badges[index] || "Special"}</div>
-      </div>`;
-    });
-    document.getElementById("offersList").innerHTML = html;
-  }
+          <div class="game-info">
+            <h3 class="game-title">${escapeHtml(g.title)}</h3>
+            <div class="game-version">${escapeHtml(g.version)}</div>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+    }
 
-  function selectOffer(url, gameName, platform, offerType, offerTitle) {
-    console.log(`🎯 LEAD CAPTURED: ${gameName} - ${platform} - ${offerType} - "${offerTitle}"`);
-    
-    // Track conversion to YOUR AdBlueMedia account
-    trackAdBlueMediaConversion(gameName, platform, offerType, offerTitle);
-    
-    // Add tracking parameters for your account
-    const trackingParams = `&subid=504359_${gameName.replace(/\s+/g, '_')}_${platform}&game=${encodeURIComponent(gameName)}&platform=${platform}&offer_type=${offerType}&source=apkmod`;
-    const trackedUrl = url + (url.includes('?') ? '&' : '?') + trackingParams;
-    
-    document.getElementById("statusMessage").innerHTML = 
-      "✅ <strong>Opening offer...</strong> Complete it to download!";
-    
-    window.open(trackedUrl, '_blank');
-    
-    setTimeout(() => {
-      document.getElementById("statusMessage").innerHTML = 
-        "✅ <strong>Offer completed!</strong> Your download is starting...";
-      
-      setTimeout(() => {
-        const platformText = platform === 'android' ? 'APK file' : 'IPA file';
-        alert(`🎉 Download for ${gameName} Premium (${platformText}) will start when you finish completing the offer`);
-        closeLocker();
-      }, 3000);
-    }, 1500);
-  }
+    function attachListeners(){
+      document.getElementById('gamesGrid').addEventListener('click', (ev) => {
+        const card = ev.target.closest('.game-card');
+        if(!card) return;
+        openPlatformModal(parseInt(card.dataset.index,10));
+      });
 
-  function closeLocker(){
-    document.getElementById("locker").style.display = "none";
-    document.getElementById("progressFill").style.width = "0%";
-    document.getElementById("progressPercent").textContent = "0%";
-    document.body.style.overflow = "auto";
-    clearInterval(progressInterval);
-    currentGame = null;
-    currentPlatform = null;
-  }
+      document.getElementById('androidBtn').addEventListener('click', () => selectPlatform('android'));
+      document.getElementById('iosBtn').addEventListener('click', () => selectPlatform('ios'));
 
-  // AdBlueMedia Tracking
-  function trackAdBlueMediaConversion(gameName, platform, offerType, offerTitle) {
-    const conversionData = {
-      user_id: 504359,
-      api_key: "3b17a09c1ca2bba2d52ffadab4894374",
-      game: gameName,
-      platform: platform,
-      offer_type: offerType,
-      offer_title: offerTitle,
-      source: 'apkmod',
-      campaign: 'game_download',
-      conversion_type: 'lead',
-      timestamp: Date.now(),
-      revenue: 0.15
-    };
+      document.getElementById('searchInput').addEventListener('input', () => {
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        document.querySelectorAll('.game-card').forEach(card => {
+          const title = card.querySelector('.game-title').textContent.toLowerCase();
+          card.style.display = title.includes(q) ? 'flex' : 'none';
+        });
+      });
+    }
 
-    console.log('📊 Tracking conversion to YOUR AdBlueMedia account:', conversionData);
-    
-    // Track conversion using YOUR AdBlueMedia pixel
-    const trackingPixel = `https://dbj3fg9om9jaj.cloudfront.net/public/conversion/pixel.gif?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&game=${encodeURIComponent(gameName)}&platform=${platform}&offer_type=${offerType}&conversion=lead&revenue=0.15`;
-    const img = new Image();
-    img.src = trackingPixel;
-    
-    // Also send conversion data via POST
-    fetch('https://dbj3fg9om9jaj.cloudfront.net/public/conversion/track.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(conversionData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('✅ Conversion tracked in YOUR AdBlueMedia dashboard:', data);
-    })
-    .catch(error => {
-      console.log('⚠️ Conversion tracking failed, but pixel was sent:', error);
-    });
-  }
-</script>
+    // attempt auto-crop normalization (works when CORS allows)
+    function normalizeImage(src, maxSize = 800){
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          try {
+            const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+            const w = Math.round(img.width * scale);
+            const h = Math.round(img.height * scale);
+            const c = document.createElement('canvas');
+            c.width = w; c.height = h;
+            const ctx = c.getContext('2d');
+            ctx.drawImage(img,0,0,w,h);
+            const d = ctx.getImageData(0,0,w,h).data;
+            const getPx = (x,y)=>{ const i=(y*w+x)*4; return [d[i],d[i+1],d[i+2],d[i+3]]; };
+            const corners = [getPx(0,0), getPx(w-1,0), getPx(0,h-1), getPx(w-1,h-1)];
+            const avg = corners.reduce((a,c)=>{a[0]+=c[0];a[1]+=c[1];a[2]+=c[2];return a},[0,0,0]).map(v=>v/4);
+            const tol = 18;
+            const similar = px => Math.abs(px[0]-avg[0])<=tol && Math.abs(px[1]-avg[1])<=tol && Math.abs(px[2]-avg[2])<=tol;
+            let top=0,bottom=h-1,left=0,right=w-1;
+            outer: for(let y=0;y<h;y++){ for(let x=0;x<w;x++){ if(!similar(getPx(x,y))){ top=y; break outer; } } }
+            outer2: for(let y=h-1;y>=0;y--){ for(let x=0;x<w;x++){ if(!similar(getPx(x,y))){ bottom=y; break outer2; } } }
+            outer3: for(let x=0;x<w;x++){ for(let y=0;y<h;y++){ if(!similar(getPx(x,y))){ left=x; break outer3; } } }
+            outer4: for(let x=w-1;x>=0;x--){ for(let y=0;y<h;y++){ if(!similar(getPx(x,y))){ right=x; break outer4; } } }
+            if(right-left < 6 || bottom-top < 6) { resolve(src); return; }
+            const cw = right-left+1, ch = bottom-top+1;
+            const out = document.createElement('canvas'); out.width = cw; out.height = ch;
+            out.getContext('2d').drawImage(c, left, top, cw, ch, 0,0,cw,ch);
+            resolve(out.toDataURL('image/png'));
+          } catch(e){ resolve(src); }
+        };
+        img.onerror = () => resolve(src);
+        img.src = src;
+        if(img.complete) setTimeout(()=>{ if(img.naturalWidth) img.onload(); },10);
+      });
+    }
 
+    // Modal opening: use normalized image if possible, clear backgrounds, show modal
+    function openPlatformModal(index){
+      const game = games[index];
+      currentGame = game;
+      const modalThumb = document.getElementById('modalThumbnail');
+      const modalImg = document.getElementById('modalGameImg');
+      modalThumb.style.backgroundImage = '';
+      modalThumb.style.backgroundColor = 'transparent';
+      modalImg.src = ''; modalImg.alt = '';
+
+      normalizeImage(game.img, 800).then(norm => {
+        modalImg.src = norm;
+        modalImg.alt = game.title;
+      }).catch(()=>{ modalImg.src = game.img; modalImg.alt = game.title; });
+
+      document.getElementById('modalGameTitle').textContent = game.title;
+      document.getElementById('platformModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePlatformModal(){
+      const modalImg = document.getElementById('modalGameImg');
+      const modalThumb = document.getElementById('modalThumbnail');
+      modalImg.src = ''; modalImg.alt = '';
+      modalThumb.style.backgroundImage = '';
+      modalThumb.style.backgroundColor = 'transparent';
+      document.getElementById('platformModal').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function selectPlatform(platform){
+      currentPlatform = platform;
+      closePlatformModal();
+      openLocker();
+    }
+
+    function openLocker(){
+      if(!currentGame || !currentPlatform) return;
+      document.getElementById('locker').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      document.getElementById('offersSection').style.display = 'none';
+      document.getElementById('progressFill').style.width = '0%';
+      document.getElementById('progressPercent').textContent = '0%';
+      document.getElementById('statusMessage').textContent = '🔄 Initializing secure download...';
+
+      const preview = document.getElementById('gamePreviewLocker');
+      preview.innerHTML = '';
+
+      const thumb = document.createElement('div');
+      thumb.className = 'game-box-thumbnail small';
+      thumb.style.backgroundImage = ''; thumb.style.backgroundColor = 'transparent';
+
+      const img = document.createElement('img');
+      img.className = 'modal-logo'; img.alt = currentGame.title;
+
+      normalizeImage(currentGame.img, 600).then(norm=>{ img.src = norm; }).catch(()=>{ img.src = currentGame.img; });
+
+      thumb.appendChild(img);
+
+      const info = document.createElement('div');
+      info.className = 'game-preview-content';
+      const platformText = currentPlatform === 'android' ? '🤖 Android' : '🍎 iOS';
+      const fileType = currentPlatform === 'android' ? 'APK + OBB Files' : 'IPA File';
+      info.innerHTML = `<h3>${escapeHtml(currentGame.title)}</h3>
+        <p class="file-info">📦 ${fileType} • ${escapeHtml(currentGame.version)} • 🕒 Updated: Today</p>
+        <div style="margin-top:.3rem;display:inline-block;background:var(--primary);color:#fff;padding:.22rem .46rem;border-radius:6px;font-weight:700;font-size:.82rem">${platformText}</div>`;
+
+      preview.appendChild(thumb);
+      preview.appendChild(info);
+
+      startOptimizedProgressBar();
+    }
+
+    function startOptimizedProgressBar(){
+      let currentProgress = 0;
+      const fill = document.getElementById('progressFill');
+      const percent = document.getElementById('progressPercent');
+      const status = document.getElementById('statusMessage');
+      const messages = [
+        "🔄 Checking device compatibility...",
+        "✅ Scanning for security threats...",
+        "🔐 Verifying file integrity...",
+        "⚡ Optimizing download speed...",
+        "🏁 Preparing game content..."
+      ];
+      clearInterval(progressInterval);
+      progressInterval = setInterval(() => {
+        if(currentProgress >= 100){
+          clearInterval(progressInterval);
+          fill.style.width = '100%';
+          percent.textContent = '100%';
+          status.innerHTML = '✅ <strong>Ready! Choose an offer to download</strong>';
+          document.getElementById('offersSection').style.display = 'block';
+          loadOffers();
+        } else {
+          currentProgress += 5 + Math.random()*6;
+          if(currentProgress > 100) currentProgress = 100;
+          fill.style.width = currentProgress + '%';
+          percent.textContent = Math.round(currentProgress) + '%';
+          const idx = Math.min(Math.floor(currentProgress/20), messages.length-1);
+          status.textContent = messages[idx];
+        }
+      }, 140);
+    }
+
+    // Offers (AdBlue)
+    function loadOffers(){
+      if(!currentGame || !currentPlatform) return;
+      const searchTerm = `${currentGame.title} ${currentPlatform}`;
+      document.getElementById('offersList').innerHTML = `<p style="color:var(--text-muted);font-size:.9rem">Loading offers...</p>`;
+      const apiUrl = `https://dbj3fg9om9jaj.cloudfront.net/public/offers/feed.php?user_id=${ADBLUE_USER_ID}&api_key=${ADBLUE_API_KEY}&s1=${encodeURIComponent(searchTerm)}&s2=${encodeURIComponent(currentPlatform)}`;
+      fetch(apiUrl)
+        .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+        .then(offers => {
+          if(!offers || !Array.isArray(offers) || offers.length===0){ showFallbackOffers(); return; }
+          displayOffers(offers);
+        })
+        .catch(e => { console.error('offers load error',e); showFallbackOffers(); });
+    }
+
+    function showFallbackOffers(){
+      const fallback = [
+        { anchor: "Complete Quick Survey (1-2 minutes)", url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=${ADBLUE_USER_ID}&api_key=${ADBLUE_API_KEY}&offer_id=survey1`, type:'survey' },
+        { anchor: "Watch Short Video Ad (45-60 seconds)", url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=${ADBLUE_USER_ID}&api_key=${ADBLUE_API_KEY}&offer_id=video1`, type:'video' },
+        { anchor: "Free App Trial (2-3 minutes)", url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=${ADBLUE_USER_ID}&api_key=${ADBLUE_API_KEY}&offer_id=trial1`, type:'trial' },
+        { anchor: "Quick Registration (1-2 minutes)", url: `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=${ADBLUE_USER_ID}&api_key=${ADBLUE_API_KEY}&offer_id=register1`, type:'registration' }
+      ];
+      displayOffers(fallback);
+    }
+
+    function displayOffers(offers){
+      const out = [];
+      const badges = ["Recommended","Easy","Popular","Quick"];
+      offers.slice(0,4).forEach((o,idx) => {
+        const timeOptions=[60,90,120,150]; const t=timeOptions[idx]||120;
+        const success = 85 + Math.floor(Math.random()*10);
+        const users = Math.floor(Math.random()*50000)+20000;
+        const url = o.url || `https://dbj3fg9om9jaj.cloudfront.net/public/offers/click.php?user_id=${ADBLUE_USER_ID}&api_key=${ADBLUE_API_KEY}&offer_id=${o.id||'default'}`;
+        out.push(`<div class="offer-card" onclick="selectOffer('${url}','${escapeJs(currentGame.title)}','${currentPlatform}','${o.type||'task'}','${escapeJs(o.anchor||'Quick Task')}')">
+          <div>
+            <div class="offer-title">${escapeHtml(o.anchor||'Complete Quick Task')}</div>
+            <div class="offer-details"><span>✅ ${success}%</span><span>⏱ ${Math.floor(t/60)} min</span><span>👥 ${(users/1000).toFixed(0)}K+</span></div>
+          </div>
+          <div style="background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff;padding:.32rem .56rem;border-radius:8px;font-weight:800;font-size:.86rem">${badges[idx]||'Special'}</div>
+        </div>`);
+      });
+      document.getElementById('offersList').innerHTML = out.join('');
+    }
+
+    function selectOffer(url, gameName, platform, offerType, offerTitle){
+      trackAdBlueMediaConversion(gameName, platform, offerType, offerTitle);
+      const trackingParams = `&subid=${ADBLUE_USER_ID}_${gameName.replace(/\s+/g,'_')}_${platform}&game=${encodeURIComponent(gameName)}&platform=${platform}&offer_type=${offerType}&source=apkmod`;
+      const tracked = url + (url.includes('?') ? '&' : '?') + trackingParams;
+      document.getElementById('statusMessage').innerHTML = '✅ <strong>Opening offer...</strong> Complete it to download!';
+      if(url && url !== '#') window.open(tracked, '_blank');
+      setTimeout(()=> {
+        document.getElementById('statusMessage').innerHTML = '✅ <strong>Offer completed!</strong> Your download is starting...';
+        setTimeout(()=> { alert(`🎉 Download for ${gameName} (${platform}) will start after offer completion.`); closeLocker(); }, 1400);
+      }, 900);
+    }
+
+    function closeLocker(){
+      document.getElementById('locker').style.display = 'none';
+      clearInterval(progressInterval);
+      document.getElementById('progressFill').style.width = '0%';
+      document.getElementById('progressPercent').textContent = '0%';
+      document.getElementById('offersList').innerHTML = '';
+      document.body.style.overflow = '';
+      currentGame = null; currentPlatform = null;
+    }
+
+    function trackAdBlueMediaConversion(gameName, platform, offerType, offerTitle){
+      const conversionData = { user_id: ADBLUE_USER_ID, api_key: ADBLUE_API_KEY, game: gameName, platform, offer_type: offerType, offer_title: offerTitle, source: 'apkmod', campaign: 'game_download', conversion_type: 'lead', timestamp: Date.now(), revenue: 0.15 };
+      const px = `https://dbj3fg9om9jaj.cloudfront.net/public/conversion/pixel.gif?user_id=${ADBLUE_USER_ID}&api_key=${ADBLUE_API_KEY}&game=${encodeURIComponent(gameName)}&platform=${platform}&offer_type=${offerType}&conversion=lead&revenue=0.15`;
+      const img = new Image(); img.src = px;
+      fetch('https://dbj3fg9om9jaj.cloudfront.net/public/conversion/track.php', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(conversionData) })
+        .then(r=>r.json()).then(d=>console.log('conversion response',d)).catch(e=>console.log('conversion error',e));
+    }
+
+    function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function escapeJs(s){ return (s||'').toString().replace(/'/g,"\\'").replace(/"/g,'\\"'); }
+  </script>
 </body>
 </html>
