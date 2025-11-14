@@ -53,7 +53,7 @@
     /* Grid: 2 (small) - 2 (mid) - 3 (large) */
     .games-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-top:1.2rem}
 
-    .game-card{background:var(--gradient-surface);border-radius:12px;padding:.8rem;border:1px solid var(--border);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;min-height:150px;box-shadow:var(--card-shadow)}
+    .game-card{background:var(--gradient-surface);border-radius:12px;padding:.8rem;border:1px solid var(--border);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;min-height:150px;box-shadow:var(--card-shadow);cursor:pointer}
     .game-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient-primary)}
     .game-logo-container{width:70px;height:70px;border-radius:14px;overflow:hidden;margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;border:2px solid var(--primary);background:rgba(255,255,255,0.05)}
     .game-logo{width:100%;height:100%;object-fit:contain;padding:5px;display:block}
@@ -63,38 +63,49 @@
 
     /* Modal / Locker base */
     .modal-overlay, .locker-overlay{display:none;position:fixed;inset:0;z-index:1000;justify-content:center;align-items:center;padding:1rem;backdrop-filter:blur(6px);background:rgba(15,12,41,0.92)}
-    .platform-modal{width:100%;max-width:560px;background:var(--gradient-surface);border-radius:12px;padding:1rem;border:1px solid var(--border);box-shadow:0 14px 30px rgba(0,0,0,0.35),var(--glow);text-align:center}
+    .platform-modal{width:100%;max-width:560px;background:var(--gradient-surface);border-radius:12px;padding:1rem;border:1px solid var(--border);box-shadow:0 14px 30px rgba(0,0,0,0.35),var(--glow);text-align:center;position:relative}
     .close-btn{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border:none;color:var(--text-muted);cursor:pointer}
     .close-btn:hover{background:rgba(255,255,255,0.12);color:var(--text-primary)}
 
-    /* --- USER REQUEST: make modal logo larger, remove shadow/background so logo is clear --- */
-    .game-box-thumbnail{
-      width:140px;            /* increased size for modal */
-      height:180px;
+    /* Modal thumbnail: uses background-image fallback (works even when CORS blocks canvas) */
+    .platform-modal .game-box-thumbnail{
+      width:96px;
+      height:96px;
       border-radius:12px;
       overflow:hidden;
-      margin:0 auto .6rem;
+      margin:0 auto .75rem;
       display:flex;
       align-items:center;
       justify-content:center;
-      background:transparent; /* important: transparent so no black/colored backdrop */
-      box-shadow:none;        /* remove shadow so logo is clear */
-      position:relative;
+      background:var(--gradient-primary);
+      padding:10px;
+      box-shadow:none;
+      transition:transform .18s ease, opacity .18s ease;
+      transform:translateY(0);
+      opacity:1;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    .game-box-thumbnail::after{ content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; /* subtle ring if needed */ box-shadow: 0 0 0 2px rgba(138,43,226,0.04); }
-
-    /* inner image for modal: larger, no shadow, transparent background */
-    .game-box-thumbnail img.modal-logo{
+    /* image element kept as accessibility/fallback but visually we rely on background */
+    .platform-modal .game-box-thumbnail img.modal-logo{
       display:block;
       width:auto;
       height:auto;
-      max-width:90%;     /* larger occupancy */
-      max-height:90%;
+      max-width:72%;
+      max-height:72%;
       object-fit:contain;
-      border-radius:0;
+      border-radius:8px;
       background:transparent;
-      box-shadow:none;    /* remove any inner shadow */
-      border:none;        /* remove any border */
+      box-shadow:none;
+      border:none;
+      transition:transform .22s cubic-bezier(.2,.9,.3,1), opacity .22s;
+      transform: scale(.95);
+      opacity: 0;
+    }
+    .platform-modal.show .game-box-thumbnail img.modal-logo{
+      transform: scale(1);
+      opacity: 1;
     }
 
     .platform-modal h2{font-size:1.08rem;color:var(--text-primary);margin:.25rem 0}
@@ -102,25 +113,39 @@
     .platform-buttons{display:flex;flex-direction:column;gap:.6rem}
     .platform-btn{background:var(--gradient-primary);border:none;padding:.72rem;border-radius:10px;color:#fff;font-weight:700;cursor:pointer;font-size:.98rem;box-shadow:0 4px 10px rgba(138,43,226,0.16)}
 
-    /* Locker styling: make locker preview logo a bit bigger than before and remove background/shadow */
-    .locker-box{width:100%;max-width:520px;background:var(--gradient-surface);border-radius:12px;padding:.9rem;border:1px solid var(--border);box-shadow:0 14px 30px rgba(0,0,0,0.35),var(--glow);color:var(--text-primary)}
+    /* Locker styling */
+    .locker-box{width:100%;max-width:520px;background:var(--gradient-surface);border-radius:12px;padding:.9rem;border:1px solid var(--border);box-shadow:0 14px 30px rgba(0,0,0,0.35),var(--glow);color:var(--text-primary);position:relative}
     .locker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
     .locker-logo{display:flex;align-items:center;gap:.4rem;color:var(--primary);font-weight:700;font-size:.9rem}
     .locker-close-btn{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border:none;color:var(--text-muted);cursor:pointer}
     .locker-close-btn:hover{background:rgba(255,255,255,0.12);color:var(--text-primary)}
 
-    .game-preview-locker{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem;background:transparent;padding:.4rem;border-radius:8px}
-    .game-preview-locker .game-box-thumbnail.small{width:64px;height:92px;border-radius:10px;background:transparent;box-shadow:none;margin:0} /* larger than before, no shadow */
-    .game-preview-locker img{width:auto !important;height:auto !important;max-width:92%;max-height:92%;object-fit:contain;border-radius:0;background:transparent;border:none}
+    .game-preview-locker{display:flex;align-items:center;gap:.9rem;margin-bottom:.6rem;background:transparent;padding:.4rem;border-radius:8px}
+    .game-preview-locker .game-box-thumbnail.small{
+      width:92px;
+      height:92px;
+      border-radius:10px;
+      background:transparent;
+      box-shadow:none;
+      margin:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .game-preview-locker img{width:auto !important;height:auto !important;max-width:100%;max-height:100%;object-fit:contain;border-radius:0;background:transparent;border:none}
 
-    .locker-box h2{font-size:1rem;color:var(--primary);margin:.35rem 0}
+    /* Centered verification block (user requested) */
+    .locker-center{display:flex;flex-direction:column;align-items:center;text-align:center;margin:6px 0 8px;padding:0 8px}
+    .locker-center h2{font-size:1rem;color:var(--primary);margin:.25rem 0}
+    .locker-center .cta-strong{margin:0 auto}
+
     .cta-strong{font-size:.88rem;padding:.42rem;border-radius:6px;background:rgba(255,64,129,0.08);color:var(--accent);font-weight:700}
 
     .progress-container{margin:.7rem 0;background:var(--background);padding:.5rem;border-radius:6px}
     .progress-header{display:flex;justify-content:space-between;font-size:.78rem;color:var(--text-muted);margin-bottom:.3rem}
     .progress-bar{height:6px;background:var(--surface-light);border-radius:6px;overflow:hidden}
     #progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:width .35s ease}
-    #statusMessage{font-weight:700;color:var(--primary);background:rgba(138,43,226,0.06);padding:.38rem;border-radius:6px;font-size:.9rem;margin-top:.36rem}
+    #statusMessage{font-weight:700;color:var(--primary);background:rgba(138,43,226,0.06);padding:.38rem;border-radius:6px;font-size:.9rem;margin-top:.36rem;text-align:center}
 
     .offers-section{margin-top:.8rem}
     .offers-section h3{color:var(--primary);font-size:.95rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;justify-content:center}
@@ -135,8 +160,8 @@
 
     @media(max-width:480px){
       .platform-modal,.locker-box{max-width:94%;padding:.7rem;border-radius:10px}
-      .game-box-thumbnail{width:100px;height:130px}
-      .game-preview-locker .game-box-thumbnail.small{width:56px;height:80px}
+      .platform-modal .game-box-thumbnail{width:80px;height:80px;padding:8px}
+      .game-preview-locker .game-box-thumbnail.small{width:72px;height:72px}
       .platform-btn{padding:.65rem;font-size:.92rem}
       .offer-card{font-size:.85rem;padding:.52rem}
       #statusMessage{font-size:.84rem;padding:.42rem}
@@ -185,8 +210,9 @@
     <div class="platform-modal" role="dialog" aria-modal="true" aria-labelledby="modalGameTitle">
       <button class="close-btn" onclick="closePlatformModal()" aria-label="Close">×</button>
 
+      <!-- The thumbnail container supports a background-image fallback (used to display logos reliably) -->
       <div class="game-box-thumbnail" id="modalThumbnail">
-        <img id="modalGameImg" class="modal-logo" src="" alt="Game Logo" />
+        <img id="modalGameImg" class="modal-logo" src="" alt="Game Logo" decoding="async" loading="eager" />
       </div>
 
       <h2 id="modalGameTitle">Select Platform</h2>
@@ -213,8 +239,10 @@
 
       <div class="game-preview-locker" id="gamePreviewLocker"></div>
 
-      <h2>⚡ Download Verification</h2>
-      <p class="cta-strong">Complete one quick offer to unlock your download + exclusive bonus content!</p>
+      <div class="locker-center" id="lockerCenter">
+        <h2 id="lockerTitle">Items Verification</h2>
+        <p class="cta-strong" id="lockerInstruction">Complete one quick offer to unlock your download + exclusive bonus content!</p>
+      </div>
 
       <div class="progress-container">
         <div class="progress-header">
@@ -234,7 +262,7 @@
         <h3><i class="fas fa-gift"></i> Choose Your Offer</h3>
         <div id="offersList"></div>
 
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem;justify-content:center">
           <div style="display:flex;align-items:center;gap:.35rem;color:var(--text-muted);font-size:.85rem"><i class="fas fa-shield-check" style="color:var(--primary)"></i><span>100% Secure</span></div>
           <div style="display:flex;align-items:center;gap:.35rem;color:var(--text-muted);font-size:.85rem"><i class="fas fa-clock"></i><span>1-3 Minutes</span></div>
           <div style="display:flex;align-items:center;gap:.35rem;color:var(--text-muted);font-size:.85rem"><i class="fas fa-download"></i><span>Instant Access</span></div>
@@ -260,7 +288,7 @@
   </footer>
 
   <script>
-    // Game data (kept)
+    // Game data
     const games = [
       { title: "BeamNG.drive Mobile", img: "https://avatars.githubusercontent.com/u/6404024?s=280&v=4", version: "v0.32.0.0" },
       { title: "Dispatch Mobile", img: "https://i.postimg.cc/QNc8k2D9/Dispatch-art-jpg.webp", version: "v1.5.2" },
@@ -335,6 +363,14 @@
           card.style.display = title.includes(q) ? 'flex' : 'none';
         });
       });
+
+      // Close modals with Escape for convenience
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape'){
+          if(document.getElementById('platformModal').style.display === 'flex') closePlatformModal();
+          if(document.getElementById('locker').style.display === 'flex') closeLocker();
+        }
+      });
     }
 
     // attempt auto-crop normalization (works when CORS allows)
@@ -375,32 +411,79 @@
       });
     }
 
-    // Modal opening: use normalized image if possible, clear backgrounds, show modal
+    // Robust modal image handling plus reliable background-image fallback (fixes logos that fail to show due to CORS)
     function openPlatformModal(index){
       const game = games[index];
       currentGame = game;
       const modalThumb = document.getElementById('modalThumbnail');
       const modalImg = document.getElementById('modalGameImg');
-      modalThumb.style.backgroundImage = '';
-      modalThumb.style.backgroundColor = 'transparent';
-      modalImg.src = ''; modalImg.alt = '';
+      const modalWrap = modalThumb.closest('.platform-modal');
 
+      // reset states
+      modalWrap.classList.remove('show');
+      modalImg.onload = null;
+      modalImg.onerror = null;
+      modalImg.src = '';
+      modalImg.alt = game.title;
+      modalImg.style.display = ''; // ensure visible if previously hidden
+      modalThumb.style.backgroundImage = ''; // clear any previous bg
+
+      // Attach handlers BEFORE setting src
+      modalImg.onload = () => {
+        // if the <img> loads successfully, use it (still keep background-image cleared)
+        modalImg.style.width = 'auto';
+        modalImg.style.height = 'auto';
+        modalImg.style.maxWidth = '72%';
+        modalImg.style.maxHeight = '72%';
+        // animate image in
+        setTimeout(()=> modalWrap.classList.add('show'), 30);
+      };
+
+      modalImg.onerror = () => {
+        // If <img> fails (often due to CORS when we tried to use dataURL), fall back to using background-image on the container
+        // This renders reliably even if remote server doesn't allow crossOrigin canvas access.
+        modalImg.style.display = 'none';
+        modalThumb.style.backgroundImage = `url("${game.img}")`;
+        modalThumb.style.backgroundSize = 'contain';
+        modalThumb.style.backgroundPosition = 'center';
+        modalThumb.style.backgroundRepeat = 'no-repeat';
+        // still show modal and animate
+        setTimeout(()=> modalWrap.classList.add('show'), 30);
+      };
+
+      // Primary attempt: use normalized/cropped data URL (if allowed). normalizeImage resolves to either dataURL or original src.
       normalizeImage(game.img, 800).then(norm => {
-        modalImg.src = norm;
-        modalImg.alt = game.title;
-      }).catch(()=>{ modalImg.src = game.img; modalImg.alt = game.title; });
+        // If normalizeImage returns the original URL, we still let the <img> handle load.
+        modalImg.src = norm || game.img;
+      }).catch(() => {
+        // If normalization throws, just set the direct image URL
+        modalImg.src = game.img;
+      });
+
+      // Safety: show modal quickly even if image takes time
+      setTimeout(()=> {
+        document.getElementById('platformModal').style.display = 'flex';
+        // ensure modal is shown even if image loads slowly
+        if(!modalWrap.classList.contains('show')) modalWrap.classList.add('show');
+      }, 120);
 
       document.getElementById('modalGameTitle').textContent = game.title;
-      document.getElementById('platformModal').style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }
 
     function closePlatformModal(){
       const modalImg = document.getElementById('modalGameImg');
       const modalThumb = document.getElementById('modalThumbnail');
-      modalImg.src = ''; modalImg.alt = '';
+      const modalWrap = modalThumb.closest('.platform-modal');
+
+      modalWrap.classList.remove('show');
+      // clear handlers & src/background
+      modalImg.onload = null;
+      modalImg.onerror = null;
+      modalImg.src = '';
+      modalImg.alt = '';
+      modalImg.style.display = '';
       modalThumb.style.backgroundImage = '';
-      modalThumb.style.backgroundColor = 'transparent';
       document.getElementById('platformModal').style.display = 'none';
       document.body.style.overflow = '';
     }
@@ -420,6 +503,9 @@
       document.getElementById('progressPercent').textContent = '0%';
       document.getElementById('statusMessage').textContent = '🔄 Initializing secure download...';
 
+      document.getElementById('lockerTitle').textContent = 'Items Verification';
+      document.getElementById('lockerInstruction').textContent = 'Complete one quick offer to unlock your download + exclusive bonus content!';
+
       const preview = document.getElementById('gamePreviewLocker');
       preview.innerHTML = '';
 
@@ -429,8 +515,39 @@
 
       const img = document.createElement('img');
       img.className = 'modal-logo'; img.alt = currentGame.title;
+      img.decoding = 'async';
+      // styling for preview
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'contain';
+      img.style.maxWidth = '100%';
+      img.style.maxHeight = '100%';
+      img.style.opacity = '0';
+      img.style.transform = 'scale(.95)';
 
-      normalizeImage(currentGame.img, 600).then(norm=>{ img.src = norm; }).catch(()=>{ img.src = currentGame.img; });
+      // Load preview robustly. If it fails, use background of the thumb container as fallback.
+      img.onload = () => {
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      };
+      img.onerror = () => {
+        if(!img.dataset._fallback){
+          img.dataset._fallback = '1';
+          img.src = currentGame.img;
+          return;
+        }
+        img.removeAttribute('src');
+        img.alt = currentGame.title;
+        img.style.display = 'none';
+        thumb.style.backgroundImage = `url("${currentGame.img}")`;
+        thumb.style.backgroundSize = 'contain';
+        thumb.style.backgroundPosition = 'center';
+        thumb.style.backgroundRepeat = 'no-repeat';
+      };
+
+      normalizeImage(currentGame.img, 600).then(norm=>{
+        img.src = norm || currentGame.img;
+      }).catch(()=>{ img.src = currentGame.img; });
 
       thumb.appendChild(img);
 
@@ -438,8 +555,8 @@
       info.className = 'game-preview-content';
       const platformText = currentPlatform === 'android' ? '🤖 Android' : '🍎 iOS';
       const fileType = currentPlatform === 'android' ? 'APK + OBB Files' : 'IPA File';
-      info.innerHTML = `<h3>${escapeHtml(currentGame.title)}</h3>
-        <p class="file-info">📦 ${fileType} • ${escapeHtml(currentGame.version)} • 🕒 Updated: Today</p>
+      info.innerHTML = `<h3 style="margin:0;font-size:.96rem">${escapeHtml(currentGame.title)}</h3>
+        <p class="file-info" style="margin:.25rem 0 .0rem;font-size:.86rem;color:var(--text-muted)">📦 ${fileType} • ${escapeHtml(currentGame.version)} • 🕒 Updated: Today</p>
         <div style="margin-top:.3rem;display:inline-block;background:var(--primary);color:#fff;padding:.22rem .46rem;border-radius:6px;font-weight:700;font-size:.82rem">${platformText}</div>`;
 
       preview.appendChild(thumb);
@@ -524,16 +641,26 @@
       document.getElementById('offersList').innerHTML = out.join('');
     }
 
+    // Updated: open offer in new tab, keep locker open, no alert
     function selectOffer(url, gameName, platform, offerType, offerTitle){
       trackAdBlueMediaConversion(gameName, platform, offerType, offerTitle);
       const trackingParams = `&subid=${ADBLUE_USER_ID}_${gameName.replace(/\s+/g,'_')}_${platform}&game=${encodeURIComponent(gameName)}&platform=${platform}&offer_type=${offerType}&source=apkmod`;
       const tracked = url + (url.includes('?') ? '&' : '?') + trackingParams;
-      document.getElementById('statusMessage').innerHTML = '✅ <strong>Opening offer...</strong> Complete it to download!';
-      if(url && url !== '#') window.open(tracked, '_blank');
-      setTimeout(()=> {
-        document.getElementById('statusMessage').innerHTML = '✅ <strong>Offer completed!</strong> Your download is starting...';
-        setTimeout(()=> { alert(`🎉 Download for ${gameName} (${platform}) will start after offer completion.`); closeLocker(); }, 1400);
-      }, 900);
+
+      document.getElementById('statusMessage').innerHTML = '✅ <strong>Offer opened in a new tab — complete it there to start your download.</strong>';
+
+      if(url && url !== '#') {
+        try {
+          window.open(tracked, '_blank', 'noopener');
+        } catch(e) {
+          const a = document.createElement('a');
+          a.href = tracked;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.click();
+        }
+      }
+      // locker remains open; no alert, no auto-close
     }
 
     function closeLocker(){
