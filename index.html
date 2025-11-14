@@ -456,7 +456,6 @@
         // If normalizeImage returns the original URL, we still let the <img> handle load.
         modalImg.src = norm || game.img;
       }).catch(() => {
-        // If normalization throws, just set the direct image URL
         modalImg.src = game.img;
       });
 
