@@ -2,203 +2,233 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <!-- Prevent iOS auto-zoom on inputs and ensure responsive scale -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Win a Luxury Caravan — Enter to Win</title>
-  <meta name="description" content="Enter to win a $45,000 luxury caravan — complete one quick sponsor email registration (~30–90s) to enter.">
-  <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#07112a">
-
-  <!-- Font -->
+  <title>Win a Luxury Caravan — Premium Giveaway</title>
+  <meta name="description" content="Enter to win a $45,000 luxury caravan. Complete one quick sponsor email registration (30–90s). No purchase required.">
+  <meta name="theme-color" content="#071025">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /*
-      Luxury redesign:
-      - Midnight navy background with warm gold accent
-      - Large, clear CTA, improved spacing and typography
-      - Inputs set to 16px to avoid iOS auto-zoom
-      - Responsive images via <picture> & srcset
-      - Mobile-first: sticky CTA, modal full-screen on small, sticky hides during keyboard
-    */
+    /* Global */
     :root{
-      --bg:#07112a;            /* deep midnight */
-      --card:#0f1724;          /* slightly lighter card */
-      --muted:#9aa7b2;
-      --gold:#f6c85f;          /* warm gold accent */
-      --accent:#7be0d9;        /* teal highlight */
-      --text:#eef6fb;
+      --bg:#041226;          /* deep midnight */
+      --panel:#0b1630;       /* card panel */
+      --muted:#9fb0bf;
+      --heading:#f6f7f9;
+      --gold:#f6c85f;        /* accent */
+      --accent:#6be3d6;      /* secondary accent */
       --glass: rgba(255,255,255,0.03);
-      --radius:14px;
-      --maxw:1100px;
+      --radius:12px;
+      --maxw:760px;          /* narrow for mobile comfort */
+      --safe-padding:16px;
     }
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#031023);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;-webkit-font-smoothing:antialiased; -webkit-text-size-adjust:100%;}
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,var(--bg),#021222);
+      color:var(--heading);
+      -webkit-font-smoothing:antialiased;
+      -webkit-text-size-adjust:100%; /* important: avoid iOS auto-zoom */
+    }
     *,*::before,*::after{box-sizing:border-box}
     img{display:block;max-width:100%;height:auto}
-    a{color:inherit}
+    a{color:inherit;text-decoration:none}
 
-    .wrap{max-width:var(--maxw);margin:18px auto;padding:16px}
-    header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:56px;height:56px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.03)}
-    .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:-0.2px}
-    .brand p{margin:0;color:var(--muted);font-size:13px}
+    /* Wrapper */
+    .wrap{max-width:var(--maxw);margin:12px auto;padding:var(--safe-padding)}
 
-    nav{display:flex;gap:12px;align-items:center}
-    nav a{font-size:14px;color:var(--muted);padding:8px;border-radius:8px}
-    nav a:hover{color:var(--gold)}
-
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start;margin-top:18px}
-    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
-
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
-    .kicker{display:inline-block;background:linear-gradient(90deg,var(--gold),#ffb86b);color:#07112a;padding:8px 12px;border-radius:999px;font-weight:800;margin-bottom:12px}
-    .title{font-size:30px;line-height:1.02;margin:6px 0 10px 0;font-weight:800}
-    .subtitle{color:var(--muted);margin-bottom:16px;font-size:15px}
-
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .btn-primary{background:linear-gradient(90deg,var(--gold),#ffd88f);color:#07112a;padding:13px 18px;border-radius:999px;border:none;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(246,200,95,0.08)}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px 14px;border-radius:10px;color:var(--muted);cursor:pointer}
-
-    .stats{display:flex;gap:14px;color:var(--muted);font-size:13px;margin-top:12px;flex-wrap:wrap}
-    .stat strong{display:block;color:var(--text);font-weight:700}
-
-    /* prize column */
-    .prize{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
-    .prize .image-wrap{width:100%;height:0;padding-bottom:62%;position:relative;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#021022,#051631)}
-    .prize img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-    .value-bubble{background:linear-gradient(90deg,#e8fdfb,#bff7f0);padding:8px 12px;border-radius:999px;color:#00201a;font-weight:800}
-
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-    @media (max-width:980px){ .features{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:520px){ .features{grid-template-columns:1fr} }
-    .feature{background:var(--glass);padding:12px;border-radius:10px;text-align:left;color:var(--muted);min-height:64px;display:flex;flex-direction:column;justify-content:center}
-
-    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-    @media (max-width:720px){ .testimonials{grid-template-columns:1fr} }
-    .testimonial{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
-
-    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
-
-    /* Sticky CTA for mobile */
-    .sticky-cta{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;background:linear-gradient(90deg,var(--gold),#ffd88f);color:#07112a;padding:12px 18px;border-radius:999px;border:none;box-shadow:0 14px 40px rgba(246,200,95,0.08);font-weight:800;z-index:60;display:none}
-    @media (max-width:980px){ .sticky-cta{display:block;width:calc(100% - 32px);left:16px;transform:none} }
-
-    /* Modal */
-    .modal-back{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:9999;padding:12px}
-    .modal{width:100%;max-width:520px;background:linear-gradient(180deg,#07112a,#0a1730);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.02);color:var(--text)}
-    .modal h3{color:var(--gold);margin:6px 0}
-    .modal p{color:var(--muted)}
-    .form-row{display:flex;gap:10px;margin-top:12px}
-    input[type="email"], input[type="tel"], textarea, select {
-      width:100%;
-      padding:12px 14px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.04);
-      background:rgba(255,255,255,0.02);
-      color:var(--text);
-      font-size:16px; /* critical to stop iOS auto-zoom */
-      outline:none;
+    /* Header compact */
+    .header{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      position:sticky;
+      top:8px;
+      z-index:40;
+      backface-visibility:hidden;
     }
-    input::placeholder{color:rgba(238,246,251,0.55)}
-    .offers{margin-top:12px;display:none}
-    .offer{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer}
-    .progress{height:8px;background:rgba(255,255,255,0.02);border-radius:12px;margin-top:12px;overflow:hidden}
-    .progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ffd88f);transition:width .35s}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{
+      width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid rgba(255,255,255,0.04);
+      background:linear-gradient(90deg,#0b2a3a,#021426);
+      display:inline-block;
+    }
+    .title{
+      font-size:15px;
+      line-height:1;
+      font-weight:700;
+      color:var(--heading);
+    }
+    .nav-compact{
+      display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)
+    }
+    .nav-compact a{padding:8px;border-radius:8px}
+    .nav-compact a:hover{color:var(--gold)}
+
+    /* Hero card - condensed for mobile preview */
+    .hero{
+      margin-top:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 28px rgba(2,8,20,0.35);
+    }
+    .kicker{
+      display:inline-block;
+      background:linear-gradient(90deg,var(--gold),#ffd98e);
+      color:#061018;
+      padding:8px 12px;border-radius:999px;font-weight:800;font-size:12px;
+      margin-bottom:12px;
+      box-shadow: 0 6px 18px rgba(246,200,95,0.06);
+    }
+    h1{
+      margin:4px 0 8px 0;
+      font-size:22px;
+      line-height:1.02;
+      letter-spacing:-0.2px;
+      color:var(--heading);
+      font-weight:800;
+    }
+    p.lead{
+      margin:0 0 14px 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    /* CTA row - single primary, small secondary */
+    .cta-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+    .btn-primary{
+      background:linear-gradient(90deg,var(--gold),#ffd88f);
+      color:#031018;
+      padding:12px 14px;border-radius:999px;border:none;font-weight:800;font-size:15px;
+      box-shadow:0 12px 36px rgba(246,200,95,0.12);
+      flex: 1;
+      min-width:180px;
+      text-align:center;
+    }
+    .btn-secondary{
+      background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);
+      padding:10px 12px;border-radius:10px;font-size:14px;
+    }
+
+    /* summary boxes */
+    .summary{display:flex;gap:12px;color:var(--muted);font-size:13px;flex-wrap:wrap;margin-bottom:12px}
+    .summary .item{min-width:80px}
+
+    /* features - stacked cards (good mobile scan) */
+    .features{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+    .feature{background:var(--panel);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+    .feature strong{display:block;color:var(--heading);margin-bottom:6px;font-weight:700}
+
+    /* hero sticky CTA - large pill at bottom for mobile (not duplicate on hero) */
+    .sticky{
+      position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:90;
+      width:calc(100% - 32px);max-width:720px;
+      background:linear-gradient(90deg,var(--gold),#ffd88f);color:#081014;padding:12px 14px;border-radius:999px;border:none;font-weight:800;box-shadow:0 16px 44px rgba(246,200,95,0.12);
+      display:none;
+      text-align:center;
+    }
+    @media (max-width:980px){ .sticky{display:block} }
+
+    /* modal (locker) - full screen for mobile */
+    .modal-back{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,8,20,0.7);z-index:120;padding:12px;
+    }
+    .modal{
+      width:100%;max-width:520px;background:linear-gradient(180deg,#061626,#02101a);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);
+      color:var(--heading);
+    }
+    .modal h3{margin:4px 0;color:var(--gold)}
+    .modal p{color:var(--muted);font-size:14px;margin:0 0 10px 0}
+    input[type="email"], input[type="tel"]{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--heading);font-size:16px;margin-top:8px;
+    }
+    .modal .row{display:flex;gap:10px;margin-top:12px}
+    .offer{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));margin-top:10px;cursor:pointer}
+    .progress{height:8px;background:rgba(255,255,255,0.03);border-radius:8px;margin-top:12px;overflow:hidden}
+    .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ffd88f);transition:width .35s}
+    .small{font-size:13px;color:var(--muted);}
 
     /* accessibility */
-    .sr-only{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     button{min-height:44px;touch-action:manipulation}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="top" role="banner">
-      <div class="brand">
-        <img class="logo" src="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" alt="Caravan">
+  <div class="wrap" role="document">
+
+    <!-- compact header -->
+    <header class="header" role="banner">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">
+          <img src="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" alt="" style="width:44px;height:44px;border-radius:10px;object-fit:cover;">
+        </div>
         <div>
-          <h1>Luxury Caravan Giveaway</h1>
-          <p>Win a premium caravan — valued $45,000</p>
+          <div class="title">Luxury Caravan Giveaway</div>
+          <small class="small" style="color:var(--muted)">Win a $45,000 premium caravan</small>
         </div>
       </div>
 
-      <nav>
-        <a href="https://www.m4d.fun/caravan">Home</a>
+      <nav class="nav-compact" aria-label="top navigation">
         <a href="#features">Features</a>
         <a href="#testimonials">Winners</a>
         <a href="#terms">Terms</a>
       </nav>
     </header>
 
-    <main class="hero" role="main">
-      <section class="card" aria-labelledby="heroTitle">
+    <!-- hero -->
+    <section class="hero" role="main" aria-labelledby="heroHeading">
+      <div>
         <div class="kicker">LIMITED ENTRY • FREE</div>
-        <h2 id="heroTitle" class="title">Win a Luxury Caravan — Quick 2-Step Entry</h2>
-        <p class="subtitle">Complete one sponsor email registration (~30–90s) to get an instant entry. No purchase required. Use valid info to qualify.</p>
+        <h1 id="heroHeading">Win a Luxury Caravan — Quick 2‑Step Entry</h1>
+        <p class="lead">Complete one sponsor email registration (~30–90s) to get an instant entry. No purchase necessary. Use valid info to qualify.</p>
 
         <div class="cta-row">
-          <button id="openModalBtn" class="btn-primary" aria-haspopup="dialog">Enter Giveaway — Start</button>
-          <button id="howBtn" class="btn-ghost">How it works</button>
+          <!-- single clear CTA in hero; sticky CTA at bottom for persistent access -->
+          <button id="openLocker" class="btn-primary" aria-haspopup="dialog">Enter Giveaway — Start</button>
+          <button id="howItWorks" class="btn-secondary">How it works</button>
         </div>
 
-        <div class="stats" aria-hidden="false">
-          <div class="stat"><strong>$45,000</strong><small>Prize value</small></div>
-          <div class="stat"><strong>1–3 min</strong><small>Avg completion</small></div>
-          <div class="stat"><strong>Secure</strong><small>Trusted sponsors</small></div>
+        <div class="summary" aria-hidden="false">
+          <div class="item"><strong>$45,000</strong><small>Prize value</small></div>
+          <div class="item"><strong>1–3 min</strong><small>Avg completion</small></div>
+          <div class="item"><strong>Secure</strong><small>Trusted sponsors</small></div>
         </div>
 
-        <div id="features" class="features" aria-hidden="false">
-          <div class="feature"><strong>Comfort for 6</strong><small>Spacious sleeping & living</small></div>
-          <div class="feature"><strong>Full Kitchen</strong><small>Modern appliances</small></div>
-          <div class="feature"><strong>Private Bath</strong><small>Shower, toilet & vanity</small></div>
-          <div class="feature"><strong>Entertainment</strong><small>Smart TV & audio</small></div>
-          <div class="feature"><strong>Storage</strong><small>Plenty of space</small></div>
-          <div class="feature"><strong>Outdoor Awning</strong><small>Relax outside</small></div>
+        <div class="features" id="features" aria-hidden="false">
+          <div class="feature"><strong>Comfort for 6</strong><span>Spacious sleeping & living</span></div>
+          <div class="feature"><strong>Full Kitchen</strong><span>Modern appliances</span></div>
+          <div class="feature"><strong>Private Bath</strong><span>Shower, toilet & vanity</span></div>
         </div>
+      </div>
+    </section>
 
-        <div id="testimonials" class="testimonials" aria-hidden="false">
-          <div class="testimonial">
-            <strong>“I couldn't believe it when I won!”</strong>
-            <p class="small">— Sarah M., recent winner</p>
-          </div>
-          <div class="testimonial">
-            <strong>“Fast & simple registration.”</strong>
-            <p class="small">— Robert T.</p>
-          </div>
-        </div>
+    <!-- sticky CTA for mobile -->
+    <button id="stickyCTA" class="sticky" aria-label="Enter giveaway">Enter & Start →</button>
 
-        <div id="terms" style="margin-top:12px;color:var(--muted)">By entering you agree to the <a href="#" style="text-decoration:underline;color:var(--gold)">Terms & Privacy</a>. Promotion not affiliated with Google.</div>
-      </section>
-
-      <aside class="card prize" aria-label="Prize preview">
-        <div class="image-wrap" aria-hidden="false">
-          <picture>
-            <!-- NOTE: If you have real optimized images, replace URLs below -->
-            <source type="image/webp" srcset="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg 480w" sizes="100vw">
-            <img src="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg" alt="Luxury Caravan" loading="lazy">
-          </picture>
-        </div>
-
-        <div style="font-weight:700;font-size:18px">2024 Premium Luxury Caravan</div>
-        <div class="small" style="color:var(--muted);margin-top:4px">Modern amenities • Sleeps 6</div>
-        <div class="value-bubble" style="margin-top:10px">VALUE: $45,000</div>
-        <div style="margin-top:12px" class="small">🔒 Secure • ⏱ Fast • 🎟 Instant entry</div>
-      </aside>
-    </main>
-
-    <footer style="text-align:center;margin-top:18px;color:var(--muted)"><small>© 2025 Your CPA Business</small></footer>
+    <footer style="margin-top:20px;text-align:center;color:var(--muted)" id="terms">
+      <small>© 2025 Your CPA Business • Promotion not affiliated with Google.</small>
+    </footer>
   </div>
 
-  <!-- sticky mobile CTA -->
-  <button id="stickyCTA" class="sticky-cta" aria-label="Enter giveaway">Enter & Start →</button>
-
-  <!-- Modal / locker -->
-  <div id="modalBack" class="modal-back" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" aria-labelledby="modalTitle">
+  <!-- locker modal -->
+  <div id="locker" class="modal-back" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal" role="document" aria-labelledby="lockerTitle">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3 id="modalTitle">Quick Verification — Step 1</h3>
-        <button id="closeBtn" class="btn-ghost" aria-label="close">Close</button>
+        <h3 id="lockerTitle">Quick Verification — Step 1</h3>
+        <button id="closeLocker" class="btn-ghost" aria-label="Close">Close</button>
       </div>
-      <p class="small">Enter your email to save your spot. You'll then be shown sponsor offers — complete one quick email registration (~30–90s) to confirm your entry.</p>
+
+      <p class="small">Enter your email so we can save your spot. You will then see trusted sponsor offers — complete one quick email registration (~30–90s) to confirm your entry.</p>
 
       <label class="small" for="leadEmail" style="margin-top:12px">Email</label>
       <input id="leadEmail" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
@@ -206,138 +236,153 @@
       <label class="small" for="leadPhone" style="margin-top:8px">Phone (optional)</label>
       <input id="leadPhone" type="tel" placeholder="+1 555 555 5555" autocomplete="tel" inputmode="tel">
 
-      <div class="form-row" style="margin-top:12px">
-        <button id="saveContinue" class="btn-primary" style="flex:1">Save & Continue</button>
+      <div class="row" style="margin-top:12px">
+        <button id="saveLead" class="btn-primary" style="flex:1">Save & Continue</button>
         <button id="openOffers" class="btn-ghost" style="width:120px">Offers</button>
       </div>
 
       <div id="progressWrap" class="progress" style="display:none;">
-        <span id="progressBar" style="width:0%"></span>
+        <span id="progressFill" style="width:0%"></span>
       </div>
 
-      <div id="offers" class="offers" aria-live="polite">
-        <div class="small" style="margin-top:10px">Choose an offer and complete its email registration to confirm your entry:</div>
+      <div id="offers" class="offers" aria-live="polite" style="display:none;">
+        <div class="small" style="margin-top:10px">Choose an offer and complete the sponsor registration to confirm your entry:</div>
         <div id="offersList" style="margin-top:8px"></div>
       </div>
 
-      <div style="margin-top:12px" class="small">We only use your info to confirm the entry and for legitimate follow-up. We do not sell your data.</div>
+      <div class="small" style="margin-top:12px">We only use your info to confirm your entry and for legitimate follow-up. We do not sell your data.</div>
     </div>
   </div>
 
   <script>
-    // CONFIG: replace WEBHOOK_URL and SPONSORS with your values
+    /* ---------- CONFIG ----------
+       Replace WEBHOOK_URL and SPONSORS below with your real endpoints.
+    */
     const WEBHOOK_URL = ""; // e.g. "https://hooks.zapier.com/hooks/catch/XXXXX/YYYYY"
     const SPONSORS = [
       { title: "CTConnect — Cash App", url: "https://smrturl.co/a/sac7b66fcac/663?s1=" },
       { title: "CTConnect — Nike GiftCard", url: "https://smrturl.co/a/sac7b66fcac/14565?s1=" }
     ];
 
-    // Elements
-    const openModalBtn = document.getElementById('openModalBtn');
-    const stickyCTA = document.getElementById('stickyCTA');
-    const modalBack = document.getElementById('modalBack');
-    const closeBtn = document.getElementById('closeBtn');
-    const saveContinue = document.getElementById('saveContinue');
-    const openOffers = document.getElementById('openOffers');
+    /* ---------- Elements ---------- */
+    const openLockerBtn = document.getElementById('openLocker');
+    const openOffersBtn = document.getElementById('openOffers');
+    const saveLeadBtn = document.getElementById('saveLead');
+    const closeLockerBtn = document.getElementById('closeLocker');
+    const locker = document.getElementById('locker');
     const leadEmail = document.getElementById('leadEmail');
     const leadPhone = document.getElementById('leadPhone');
-    const progressWrap = document.getElementById('progressWrap');
-    const progressBar = document.getElementById('progressBar');
-    const offers = document.getElementById('offers');
+    const offersEl = document.getElementById('offers');
     const offersList = document.getElementById('offersList');
-    const howBtn = document.getElementById('howBtn');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressFill = document.getElementById('progressFill');
+    const stickyCTA = document.getElementById('stickyCTA');
+    const howBtn = document.getElementById('howItWorks');
 
-    // Utility
-    function isEmail(v){ return typeof v==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+    /* ---------- Helpers ---------- */
+    function isEmail(e){ return typeof e === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim()); }
     function postJSON(url, body){ return fetch(url, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); }
-    function appendS1(url,email){ try{ const u=new URL(url); if(!u.searchParams.get('s1')) u.searchParams.set('s1', encodeURIComponent(email)); return u.toString(); }catch(e){ return url + encodeURIComponent(email); } }
-    function openInNewTab(url){ try{ const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener noreferrer'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }catch(e){ window.open(url,'_blank','noopener'); } }
+    function appendS1(url, email){
+      try{ const u = new URL(url); if(!u.searchParams.get('s1')) u.searchParams.set('s1', encodeURIComponent(email)); return u.toString(); } catch(e) { return url + encodeURIComponent(email); }
+    }
+    function openInNewTab(url){
+      try{ const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; document.body.appendChild(a); a.click(); document.body.removeChild(a); } catch(e) { window.open(url, '_blank','noopener'); }
+    }
 
-    // Modal functions
-    function showModal(){ modalBack.style.display='flex'; modalBack.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=> leadEmail.focus(),220); }
-    function hideModal(){ modalBack.style.display='none'; modalBack.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; resetOffersUI(); }
+    /* ---------- Modal behavior ---------- */
+    function showLocker(){
+      locker.style.display = 'flex';
+      locker.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      // small delay helps mobile keyboards avoid layout jank
+      setTimeout(()=> leadEmail.focus(), 220);
+    }
+    function hideLocker(){
+      locker.style.display = 'none';
+      locker.setAttribute('aria-hidden','true');
+      document.body.style.overflow = 'auto';
+      resetOffersUI();
+    }
+    openLockerBtn && openLockerBtn.addEventListener('click', showLocker);
+    stickyCTA && stickyCTA.addEventListener('click', showLocker);
+    closeLockerBtn && closeLockerBtn.addEventListener('click', hideLocker);
+    howBtn && howBtn.addEventListener('click', ()=> alert('1) Enter email 2) Choose an offer 3) Complete sponsor registration (~30–90s) to confirm entry.'));
 
-    openModalBtn && openModalBtn.addEventListener('click', showModal);
-    stickyCTA && stickyCTA.addEventListener('click', showModal);
-    closeBtn && closeBtn.addEventListener('click', hideModal);
-    howBtn && howBtn.addEventListener('click', ()=> alert('Enter your email → choose an offer → complete the sponsor registration (30–90s) to confirm entry.'));
+    locker.addEventListener('click', (e)=> { if(e.target === locker) hideLocker(); });
+    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape' && locker.style.display === 'flex') hideLocker(); });
 
-    // Clicking backdrop closes
-    modalBack.addEventListener('click', (e)=> { if(e.target === modalBack) hideModal(); });
-    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape' && modalBack.style.display === 'flex') hideModal(); });
-
-    // Save lead and show offers
-    saveContinue.addEventListener('click', async ()=>{
-      const email = (leadEmail.value||'').trim();
-      const phone = (leadPhone.value||'').trim();
-      if(!isEmail(email)){ leadEmail.focus(); leadEmail.style.borderColor='#ff7a43'; return; }
-      leadEmail.style.borderColor='';
+    /* ---------- Lead capture and offers ---------- */
+    saveLeadBtn && saveLeadBtn.addEventListener('click', async ()=>{
+      const email = (leadEmail.value || '').trim();
+      const phone = (leadPhone.value || '').trim();
+      if(!isEmail(email)){ leadEmail.focus(); leadEmail.style.borderColor = '#ffd88f'; return; }
+      leadEmail.style.borderColor = '';
 
       const lead = { email, phone, ts: new Date().toISOString(), page: location.href };
-      try{ localStorage.setItem('caravan_lead', JSON.stringify(lead)); }catch(e){}
-      if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'lead_saved' })).catch(()=>{}); }
+      try{ localStorage.setItem('caravan_lead', JSON.stringify(lead)); } catch(e){}
+      if(WEBHOOK_URL) { postJSON(WEBHOOK_URL, Object.assign({}, lead, { event: 'lead_saved' })).catch(()=>{}); }
 
-      // show progress then offers
+      // visual progress then show offers
       showProgressThenOffers();
     });
 
-    openOffers && openOffers.addEventListener('click', ()=>{
+    openOffersBtn && openOffersBtn.addEventListener('click', ()=>{
       const raw = localStorage.getItem('caravan_lead');
-      if(!raw && !confirm('We recommend saving your email first so your entry is credited. Open offers without saving?')) return;
+      if(!raw && !confirm('We recommend saving your email so your entry can be credited. Open offers without saving?')) return;
       renderOffers();
-      offers.style.display='block';
+      offersEl.style.display = 'block';
     });
 
     function showProgressThenOffers(){
-      progressWrap.style.display='block';
-      offers.style.display='none';
-      progressBar.style.width='0%';
-      let p=0;
-      const t=setInterval(()=>{ p += 12 + Math.random()*18; if(p>100)p=100; progressBar.style.width = p+'%'; if(p>=100){ clearInterval(t); progressWrap.style.display='none'; renderOffers(); offers.style.display='block'; } }, 140);
+      progressWrap.style.display = 'block';
+      offersEl.style.display = 'none';
+      progressFill.style.width = '0%';
+      let p = 0;
+      const t = setInterval(()=> {
+        p += Math.floor(10 + Math.random()*18);
+        if(p > 100) p = 100;
+        progressFill.style.width = p + '%';
+        if(p >= 100){ clearInterval(t); progressWrap.style.display = 'none'; renderOffers(); offersEl.style.display = 'block'; }
+      }, 130);
     }
 
     function renderOffers(){
-      offersList.innerHTML='';
-      SPONSORS.forEach((s,idx)=>{
-        const row = document.createElement('div');
-        row.className='offer';
-        row.innerHTML = `<div><div style="font-weight:700">${s.title}</div><div style="font-size:13px;color:var(--muted)">Email registration • Avg 1–3 min</div></div><div style="display:flex;gap:8px;align-items:center"><div style="font-size:12px;color:var(--muted)">${idx===0?'Recommended':'Popular'}</div><div style="background:linear-gradient(90deg,#00e5ff,#0099ff);color:#000;padding:8px 10px;border-radius:999px;font-weight:700">Open</div></div>`;
-        row.addEventListener('click', ()=> selectOffer(s));
-        offersList.appendChild(row);
+      offersList.innerHTML = '';
+      SPONSORS.forEach((s, idx) => {
+        const el = document.createElement('div');
+        el.className = 'offer';
+        el.innerHTML = `<div><div style="font-weight:700">${s.title}</div><div class="small" style="color:var(--muted)">Email registration • Avg 1–3 min</div></div><div style="display:flex;gap:8px;align-items:center"><div style="font-size:12px;color:var(--muted)">${idx===0?'Recommended':'Popular'}</div><div style="background:linear-gradient(90deg,#00e5ff,#0099ff);color:#000;padding:8px 10px;border-radius:999px;font-weight:700">Open</div></div>`;
+        el.addEventListener('click', ()=> selectOffer(s));
+        offersList.appendChild(el);
       });
     }
 
     async function selectOffer(sponsor){
       let lead = null;
-      try{ lead = JSON.parse(localStorage.getItem('caravan_lead')||'null'); }catch(e){ lead=null; }
+      try{ lead = JSON.parse(localStorage.getItem('caravan_lead') || 'null'); } catch(e){ lead = null; }
       if(!lead || !isEmail(lead.email)){ alert('Please save your email first so your entry is credited.'); return; }
 
-      // Send lead+offer to webhook (optional) - non-blocking
       if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'offer_click', offer: sponsor.title, offer_url: sponsor.url, ts: new Date().toISOString() })).catch(()=>{}); }
-
-      // Append s1 param if possible
       const redirect = appendS1(sponsor.url, lead.email);
       openInNewTab(redirect);
 
-      setTimeout(()=>{ alert('Offer opened in a new tab. Complete the sponsor registration to confirm your entry.'); hideModal(); }, 700);
+      setTimeout(()=> { alert('Offer opened in a new tab — complete the sponsor registration to confirm your entry.'); hideLocker(); }, 700);
     }
 
-    function resetOffersUI(){ progressWrap.style.display='none'; progressBar.style.width='0%'; offers.style.display='none'; offersList.innerHTML=''; }
+    function resetOffersUI(){ progressWrap.style.display = 'none'; progressFill.style.width = '0%'; offersEl.style.display = 'none'; offersList.innerHTML = ''; }
 
-    // Restore saved lead
-    (function restore(){
-      try{ const raw = localStorage.getItem('caravan_lead'); if(raw){ const parsed = JSON.parse(raw); if(parsed.email) leadEmail.value = parsed.email; if(parsed.phone) leadPhone.value = parsed.phone; } }catch(e){}
-    })();
+    // restore previous lead
+    (function restoreLead(){ try{ const raw = localStorage.getItem('caravan_lead'); if(raw){ const p = JSON.parse(raw); if(p.email) leadEmail.value = p.email; if(p.phone) leadPhone.value = p.phone; } } catch(e){} })();
 
-    // Sticky CTA: hide when keyboard opens (mobile)
-    (function stickyBehavior(){
-      const sticky = document.getElementById('stickyCTA');
+    // sticky CTA visibility: hide when keyboard likely open (visualViewport heuristic)
+    (function stickyVisibility(){
+      const s = document.getElementById('stickyCTA');
       function update(){
         if(window.visualViewport){
-          if(window.visualViewport.height < screen.availHeight * 0.65) sticky.style.display='none';
-          else sticky.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
+          if(window.visualViewport.height < screen.availHeight * 0.65) s.style.display = 'none';
+          else s.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
         } else {
-          sticky.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
+          s.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
         }
       }
       window.addEventListener('resize', update);
@@ -347,16 +392,8 @@
       update();
     })();
 
-    // auto open ?open=1
-    (function autoOpen(){ try{ const u = new URL(location.href); if(u.searchParams.get('open')==='1') showModal(); }catch(e){} })();
-
-    // expose helper for debug
-    function showModal(){ modalBack.style.display='flex'; modalBack.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=> leadEmail.focus(),220); }
-    function hideModal(){ modalBack.style.display='none'; modalBack.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; resetOffersUI(); }
-    window.__landing = { showModal, hideModal, renderOffers };
-
-    // wire sticky CTA click (element exists)
-    document.getElementById('stickyCTA')?.addEventListener('click', showModal);
+    // expose helpers for debugging
+    window.__landing = { showLocker: showLocker, hideLocker: hideLocker, renderOffers: renderOffers };
   </script>
 </body>
 </html>
