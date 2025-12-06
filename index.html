@@ -865,7 +865,6 @@
 
 
         /* Platform Modal */
-
         .platform-modal {
 
             display: none;
@@ -1117,7 +1116,6 @@
 
 
         /* Locker Modal */
-
         .locker-modal {
 
             display: none;
@@ -1657,7 +1655,6 @@
 
 
         /* SEO Content Sections */
-
         .content-section {
 
             padding: 30px 16px;
@@ -2739,21 +2736,19 @@
 
             const apiKey = '3b17a09c1ca2bba2d52ffadab4894374';
 
-            const s1 = trackingSub1 || '';
+            // FIXED: Use game title for s1 if available, otherwise use URL parameter
+
+            const s1Value = currentGame ? currentGame.title : (trackingSub1 || '');
 
             const s2 = urlParams.sub2 || urlParams.s2 || '';
 
             
 
-            return `${baseUrl}?user_id=${userId}&api_key=${apiKey}&s1=${encodeURIComponent(s1)}&s2=${encodeURIComponent(s2)}`;
+            return `${baseUrl}?user_id=${userId}&api_key=${apiKey}&s1=${encodeURIComponent(s1Value)}&s2=${encodeURIComponent(s2)}`;
 
         }
 
 
-
-        const LOCKER_API_URL = getLockerApiUrl();
-
-        
 
         let allOffers = [];
 
@@ -2771,9 +2766,33 @@
 
         function sendPostback(status = 'approved', payout = '') {
 
+            // FIXED: Get sub1 value - use game title if available, otherwise use URL parameter
+
+            const postbackSub1 = currentGame ? currentGame.title : (trackingSub1 || '');
+
+            
+
             if (!clickId && !transactionId) {
 
                 console.log('No click ID or transaction ID found for postback');
+
+                // Still send postback with sub1 if we have it
+
+                if (postbackSub1) {
+
+                    const postbackUrl = `https://track.adbluemedia.com/postback?status=${status}&payout=${encodeURIComponent(payout)}&sub1=${encodeURIComponent(postbackSub1)}`;
+
+                    const img = new Image();
+
+                    img.src = postbackUrl;
+
+                    img.style.display = 'none';
+
+                    document.body.appendChild(img);
+
+                    console.log('Postback sent (no clickid):', postbackUrl);
+
+                }
 
                 return;
 
@@ -2783,9 +2802,9 @@
 
             // adbluemedia postback URL format
 
-            // Replace with your actual postback URL from adbluemedia
+            // FIXED: Include sub1 (game name) in postback so it appears in leads dashboard
 
-            const postbackUrl = `https://track.adbluemedia.com/postback?clickid=${encodeURIComponent(clickId || transactionId)}&status=${status}&payout=${encodeURIComponent(payout)}&sub1=${encodeURIComponent(trackingSub1)}`;
+            const postbackUrl = `https://track.adbluemedia.com/postback?clickid=${encodeURIComponent(clickId || transactionId)}&status=${status}&payout=${encodeURIComponent(payout)}&sub1=${encodeURIComponent(postbackSub1)}`;
 
             
 
@@ -2801,7 +2820,15 @@
 
             
 
-            console.log('Postback sent:', postbackUrl);
+            console.log('Postback sent with sub1:', {
+
+                url: postbackUrl,
+
+                sub1: postbackSub1,
+
+                game: currentGame ? currentGame.title : 'None'
+
+            });
 
         }
 
@@ -3131,7 +3158,15 @@
 
             
 
-            displayOffers();
+            // FIXED: Re-fetch offers with updated game title in s1 parameter
+
+            fetchOffers().then(() => {
+
+                displayOffers();
+
+            });
+
+            
 
             document.body.classList.add('modal-open');
 
@@ -3207,16 +3242,6 @@
 
             const offersList = document.getElementById('offersList');
 
-            // Get raw game title (not encoded) for sub1 tracking
-
-            const gameTitle = currentGame ? currentGame.title : '';
-
-            
-
-            // Use sub1 from URL if available, otherwise use game name
-
-            const sub1Value = trackingSub1 || gameTitle;
-
             
 
             if (!allOffers || allOffers.length === 0) {
@@ -3271,29 +3296,61 @@
 
                 if (offerUrl !== '#') {
 
-                    // Ensure sub1 has a value - use game title if available
+                    // FIXED: Always use game title for sub1 when available
 
-                    const finalSub1 = sub1Value || (currentGame ? currentGame.title : '');
+                    // This ensures every offer click has the game name tracked
+
+                    const finalSub1 = currentGame ? currentGame.title : (trackingSub1 || '');
 
                     
 
-                    const trackingParams = {
+                    const trackingParams = {};
 
-                        sub1: finalSub1,
+                    
 
-                        sub2: urlParams.sub2 || urlParams.s2 || '',
+                    // Always add sub1 if we have game title
 
-                        sub3: urlParams.sub3 || urlParams.s3 || '',
+                    if (finalSub1) {
 
-                        sub4: urlParams.sub4 || urlParams.s4 || '',
+                        trackingParams.sub1 = finalSub1;
 
-                        sub5: urlParams.sub5 || urlParams.s5 || '',
+                    }
 
-                        clickid: clickId || transactionId || '',
+                    
 
-                        transaction_id: transactionId || clickId || ''
+                    // Add other tracking parameters
 
-                    };
+                    if (urlParams.sub2 || urlParams.s2) {
+
+                        trackingParams.sub2 = urlParams.sub2 || urlParams.s2;
+
+                    }
+
+                    if (urlParams.sub3 || urlParams.s3) {
+
+                        trackingParams.sub3 = urlParams.sub3 || urlParams.s3;
+
+                    }
+
+                    if (urlParams.sub4 || urlParams.s4) {
+
+                        trackingParams.sub4 = urlParams.sub4 || urlParams.s4;
+
+                    }
+
+                    if (urlParams.sub5 || urlParams.s5) {
+
+                        trackingParams.sub5 = urlParams.sub5 || urlParams.s5;
+
+                    }
+
+                    if (clickId || transactionId) {
+
+                        trackingParams.clickid = clickId || transactionId;
+
+                        trackingParams.transaction_id = transactionId || clickId;
+
+                    }
 
                     
 
@@ -3363,7 +3420,7 @@
 
                     game: currentGame ? currentGame.title : '',
 
-                    sub1: trackingSub1 || (currentGame ? currentGame.title : ''),
+                    sub1: currentGame ? currentGame.title : (trackingSub1 || ''),
 
                     clickid: clickId || transactionId
 
@@ -3504,10 +3561,16 @@
             });
 
             
+            // Render games immediately (don't wait for offers)
 
-            fetchOffers().then(() => {
+            renderGames();
 
-                renderGames();
+            
+            // Fetch offers in background (for locker, not needed for games display)
+
+            fetchOffers().catch(error => {
+
+                console.error('Error fetching offers (games will still show):', error);
 
             });
 
