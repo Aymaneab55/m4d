@@ -3207,13 +3207,15 @@
 
             const offersList = document.getElementById('offersList');
 
-            const gameName = currentGame ? encodeURIComponent(currentGame.title) : '';
+            // Get raw game title (not encoded) for sub1 tracking
+
+            const gameTitle = currentGame ? currentGame.title : '';
 
             
 
             // Use sub1 from URL if available, otherwise use game name
 
-            const sub1Value = trackingSub1 || gameName;
+            const sub1Value = trackingSub1 || gameTitle;
 
             
 
@@ -3269,9 +3271,15 @@
 
                 if (offerUrl !== '#') {
 
+                    // Ensure sub1 has a value - use game title if available
+
+                    const finalSub1 = sub1Value || (currentGame ? currentGame.title : '');
+
+                    
+
                     const trackingParams = {
 
-                        sub1: sub1Value,
+                        sub1: finalSub1,
 
                         sub2: urlParams.sub2 || urlParams.s2 || '',
 
@@ -3286,6 +3294,22 @@
                         transaction_id: transactionId || clickId || ''
 
                     };
+
+                    
+
+                    // Debug: Log sub1 value for troubleshooting
+
+                    console.log('Adding sub1 to offer URL:', {
+
+                        sub1: finalSub1,
+
+                        game: currentGame ? currentGame.title : 'No game',
+
+                        trackingSub1: trackingSub1,
+
+                        offerUrl: offerUrl
+
+                    });
 
                     
 
