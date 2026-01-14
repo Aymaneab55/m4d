@@ -7,7 +7,7 @@
   <title>m4d.fun - Unlock Premium Games | Free Modded APK Downloads</title>
   <meta name="title" content="m4d.fun - Unlock Premium Games | Free Modded APK Downloads" />
   <meta name="description" content="Download premium mobile games for free! Get modded APK files for GTA V Mobile, BeamNG.drive, Forza Horizon, Fortnite Mobile, and 20+ more premium games. Unlock all features, unlimited money, and premium content." />
-  <meta name="keywords" content="modded games, premium games, free apk, mobile games, gta v mobile, fortnite mobile, modded apk, unlock premium games, free games download" />
+  <meta name="keywords" content="modded games, premium games, free apk, mobile games, gta v mobile, fortnite mobile, modded apk, unlock premium games, free games download, android games, ios games" />
   <meta name="author" content="m4d.fun" />
   <meta name="robots" content="index, follow" />
   <meta name="language" content="English" />
@@ -40,62 +40,306 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/main.css" />
 
-  <!-- Structured Data (JSON-LD) for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "m4d.fun",
-    "url": "https://www.m4d.fun",
-    "description": "Download premium mobile games for free! Get modded APK files for GTA V Mobile, BeamNG.drive, Forza Horizon, Fortnite Mobile, and 20+ more premium games.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.m4d.fun/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Premium Mobile Games Collection",
-    "description": "Collection of premium mobile games available for download",
-    "itemListElement": [
-      { "@type": "VideoGame", "position": 1, "name": "GTA V Mobile", "description": "Download GTA V Mobile modded APK with all features unlocked", "applicationCategory": "Game", "operatingSystem": "Android, iOS" },
-      { "@type": "VideoGame", "position": 2, "name": "BeamNG.drive Mobile", "description": "Download BeamNG.drive Mobile modded version", "applicationCategory": "Game", "operatingSystem": "Android, iOS" },
-      { "@type": "VideoGame", "position": 3, "name": "Forza Horizon Mobile", "description": "Download Forza Horizon Mobile premium version", "applicationCategory": "Game", "operatingSystem": "Android, iOS" },
-      { "@type": "VideoGame", "position": 4, "name": "Fortnite Mobile", "description": "Download Fortnite Mobile modded APK", "applicationCategory": "Game", "operatingSystem": "Android, iOS" }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "m4d.fun",
-    "url": "https://www.m4d.fun",
-    "logo": "https://i.postimg.cc/HkNgSMTK/Black-and-Green-Illustrative-E-Sports-Gaming-Logo-2-removebg.png",
-    "description": "Premium mobile games download platform",
-    "sameAs": []
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "Are these modded games safe to download?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, all our APK files are scanned and verified for safety. We only provide trusted modded games from reliable sources. Each file is checked for malware and viruses before being made available for download." } },
-      { "@type": "Question", "name": "Do I need to root my Android device to use modded games?", "acceptedAnswer": { "@type": "Answer", "text": "No, most of our modded games work without root access. Simply download and install the APK file like any regular app. However, some advanced mods may require root access, which will be clearly mentioned in the game description." } },
-      { "@type": "Question", "name": "Are these games really free? What's the catch?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, all games are completely free to download. You just need to complete a quick verification task (like a simple survey or app install) to verify you're human. This helps us keep the service free for everyone while preventing abuse." } },
-      { "@type": "Question", "name": "What features are unlocked in modded games?", "acceptedAnswer": { "@type": "Answer", "text": "Modded games typically include unlimited money, unlocked premium content, all characters/vehicles unlocked, no ads, and sometimes god mode or other special features. The exact features vary by game and are listed in each game's description." } },
-      { "@type": "Question", "name": "Can I play modded games online?", "acceptedAnswer": { "@type": "Answer", "text": "Most modded games work offline. For online multiplayer games, modded versions may not work with official servers to prevent cheating. Single-player games and offline modes work perfectly with modded versions." } },
-      { "@type": "Question", "name": "How do I install APK files on Android?", "acceptedAnswer": { "@type": "Answer", "text": "First, enable 'Install from Unknown Sources' in your Android settings. Then download the APK file, tap on it, and follow the installation prompts. For games with OBB files, place the OBB folder in Android/obb/[game-folder] before launching the game." } }
-    ]
-  }
-  </script>
+  <style>
+/* Provided CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #121212;
+  color: #e0e0e0;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 20px;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  user-select: none;
+  overflow-x: hidden;
+}
+body.modal-open { overflow: hidden; position: fixed; width: 100%; height: 100%; }
+.container { max-width: 100%; margin: 0 auto; padding: 0; }
+.header {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(30, 30, 30, 0.9); backdrop-filter: blur(10px);
+  padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 0;
+}
+.logo-section { display: flex; align-items: center; gap: 8px; }
+.logo-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.logo-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+.logo-icon i { display: none; }
+.logo-icon::after { display: none; }
+.logo-text { display: flex; flex-direction: column; }
+.logo-text h1 {
+  font-size: 1.3rem; font-weight: 700;
+  background: linear-gradient(to right, #00ffcc, #00ccff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin: 0; line-height: 1.2;
+}
+.logo-text p { font-size: 0.7rem; color: #b0b0b0; margin: 0; margin-top: -2px; }
+.menu-icon { font-size: 1.5rem; color: #ffffff; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); padding: 8px; }
+.hero-section {
+  background: linear-gradient(135deg, rgba(0, 255, 204, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
+  border-radius: 16px; padding: 20px 16px; margin: 15px 16px; text-align: center; border: 1px solid rgba(0, 255, 204, 0.2);
+}
+.hero-title {
+  font-size: 1.5rem; font-weight: 700;
+  background: linear-gradient(to right, #00ffcc, #00ccff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 10px;
+}
+.hero-description { font-size: 0.9rem; color: #b0b0b0; line-height: 1.6; margin-bottom: 8px; }
+.hero-features { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 12px; }
+.hero-feature {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(0, 255, 204, 0.1);
+  padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; color: #00ffcc;
+}
+.hero-feature i { font-size: 0.7rem; }
+.search-bar {
+  background: #0a0a0a; border-radius: 50px; padding: 12px 15px 12px 45px;
+  margin: 15px 16px; position: relative; border: 1px solid rgba(255,255,255,0.1);
+}
+.search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #b0b0b0; font-size: 1rem; }
+.search-bar input { width: 100%; background: transparent; border: none; color: #e0e0e0; font-size: 1rem; outline: none; }
+.search-bar input::placeholder { color: #b0b0b0; }
+.view-toggle { display: flex; gap: 10px; margin: 10px 16px 15px; }
+.view-btn {
+  width: 40px; height: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+  background: #0a0a0a; color: #b0b0b0; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); outline: none;
+}
+.view-btn.active { background: #00ffcc; color: #121212; border-color: #00ffcc; }
+.games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 16px; max-width: 100%; }
+.games-list { display: none; }
+.games-list.active { display: block; }
+.game-card {
+  background: #1e1e1e; border-radius: 12px; padding: 15px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(255,255,255,0.05); cursor: pointer; position: relative; overflow: hidden; display: flex; flex-direction: column;
+  align-items: center; text-align: center; touch-action: manipulation; max-width: 100%; outline: none; -webkit-touch-callout: none;
+}
+.game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); }
+.game-card:active { transform: scale(0.98); }
+.game-icon { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; margin-bottom: 12px; background: #0f0f0f; }
+.game-info { width: 100%; flex-shrink: 0; text-align: center; }
+.game-title {
+  font-size: 0.75rem; font-weight: 600; color: #ffffff; margin-bottom: 6px; text-align: center;
+  line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.game-version { font-size: 0.75rem; color: #b0b0b0; margin-bottom: 2px; text-align: center; }
+.game-rating { display: flex; align-items: center; justify-content: center; gap: 2px; }
+.game-rating i { font-size: 0.7rem; color: #FFC107; }
+.game-rating i.far { color: #444; }
+.list-item {
+  background: #1a1a1a; border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px;
+  cursor: pointer; border: 2px solid #2a2a2a; outline: none; -webkit-touch-callout: none; touch-action: manipulation;
+}
+.list-item:active { transform: scale(0.98); }
+.list-item-icon { width: 60px; height: 60px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: #0f0f0f; display: flex; align-items: center; justify-content: center; }
+.list-item-icon img { width: 100%; height: 100%; object-fit: contain; }
+.list-item-info { flex: 1; text-align: left; }
+.list-item-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.list-item-version { font-size: 12px; color: #888; margin-bottom: 4px; }
+.list-item-rating { display: flex; align-items: center; gap: 2px; }
+.list-item-rating i { font-size: 10px; color: #ffd700; }
+.list-item-rating i.far { color: #444; }
+
+/* Platform Modal */
+.platform-modal {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; touch-action: manipulation;
+}
+.platform-modal.active { display: flex; }
+.platform-content {
+  background: #1a1a1a; border-radius: 20px; padding: 30px 20px; width: 100%; max-width: 400px; position: relative; text-align: center;
+}
+.platform-close {
+  position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #fff; font-size: 24px; cursor: pointer;
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s;
+}
+.platform-close:active { background: #2a2a2a; }
+.platform-icon { width: 120px; height: 120px; margin: 0 auto 20px; border-radius: 20px; overflow: hidden; background: #0f0f0f; display: flex; align-items: center; justify-content: center; }
+.platform-icon img { width: 100%; height: 100%; object-fit: contain; }
+.platform-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 10px; text-align: center; }
+.platform-text { font-size: 14px; color: #888; margin-bottom: 25px; text-align: center; }
+.platform-buttons { display: flex; flex-direction: column; gap: 12px; }
+.platform-btn {
+  background: #00a8ff; border: none; border-radius: 12px; padding: 16px 20px; color: white; font-size: 15px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: all 0.3s; text-align: center; outline: none;
+}
+.platform-btn:active { transform: scale(0.98); background: #0097e6; }
+.platform-btn-icon { font-size: 20px; }
+
+/* Locker Modal */
+.locker-modal {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.95); z-index: 2000; align-items: center; justify-content: center; padding: 15px; overflow-y: auto; touch-action: manipulation;
+}
+.locker-modal.active { display: flex; }
+.locker-content {
+  max-width: 450px; width: 100%; margin: auto; background: #1a1a1a; border-radius: 16px; padding: 15px; position: relative; max-height: 95vh; overflow-y: auto;
+}
+.locker-close {
+  position: absolute; top: 10px; right: 10px; background: transparent; border: none; color: #fff; font-size: 20px; cursor: pointer; width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s; z-index: 10;
+}
+.locker-close:active { background: #2a2a2a; }
+.locker-header { text-align: center; margin-bottom: 12px; }
+.mediafire-logo { width: 80px; margin: 0 auto 8px; display: block; }
+.game-logo-locker { width: 70px; height: 70px; margin: 0 auto 8px; border-radius: 12px; object-fit: contain; background: #0f0f0f; padding: 8px; }
+.locker-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; text-align: center; }
+.secure-badge {
+  display: inline-flex; align-items: center; gap: 4px; background: #2a2a2a; padding: 4px 8px; border-radius: 12px; font-size: 9px; color: #00a8ff; margin-top: 4px;
+}
+.secure-badge i { font-size: 12px; }
+.instructions-box { background: #0f0f0f; border-radius: 10px; padding: 10px; margin-bottom: 12px; }
+.instructions-title { font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 6px; text-align: center; line-height: 1.3; }
+.instructions-text { font-size: 11px; color: #888; margin-bottom: 8px; text-align: center; line-height: 1.4; }
+.highlight-green { color: #00ff88; font-weight: 600; }
+.steps-list { list-style: none; margin: 8px 0; display: none; }
+.step-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; text-align: left; }
+.step-number { width: 20px; height: 20px; background: #00a8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; flex-shrink: 0; }
+.step-item div:last-child { font-size: 10px; color: #ccc; line-height: 1.3; flex: 1; }
+.note-box { background: #2a2a2a; border-left: 3px solid #00a8ff; border-radius: 6px; padding: 6px 8px; margin-top: 8px; }
+.note-title { font-size: 10px; font-weight: 700; color: #00a8ff; margin-bottom: 2px; text-align: left; }
+.note-text { font-size: 9px; color: #aaa; line-height: 1.3; text-align: left; }
+.offers-container { margin-top: 12px; }
+.offers-title { font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 8px; text-align: center; }
+.loading-offers { text-align: center; padding: 15px; color: #888; }
+.loading-offers i { font-size: 20px; margin-bottom: 8px; animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.offer-button {
+  background: #00ff88; border: none; border-radius: 10px; padding: 10px 12px; color: #000; font-size: 12px; font-weight: 700;
+  cursor: pointer; width: 100%; margin-bottom: 8px; text-align: left; transition: all 0.3s; display: flex; align-items: center; gap: 10px; outline: none;
+}
+.offer-button:active { transform: scale(0.98); background: #00e677; }
+.offer-logo { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; background: #fff; flex-shrink: 0; }
+.offer-text { flex: 1; text-align: left; }
+.no-offers { text-align: center; padding: 20px; color: #888; font-size: 14px; }
+
+/* SEO Content Sections */
+.content-section { padding: 30px 16px; margin: 20px 0; }
+.content-section h2 {
+  font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 15px; text-align: center;
+  background: linear-gradient(to right, #00ffcc, #00ccff); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.content-section h3 { font-size: 1.2rem; font-weight: 600; color: #ffffff; margin-bottom: 10px; margin-top: 20px; }
+.content-section p { font-size: 0.95rem; color: #b0b0b0; line-height: 1.8; margin-bottom: 15px; text-align: left; }
+.content-section ol, .content-section ul { margin-left: 20px; margin-bottom: 15px; color: #b0b0b0; }
+.content-section li { margin-bottom: 10px; line-height: 1.6; }
+.how-it-works-steps { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+.step-card {
+  background: #1a1a1a; border-radius: 12px; padding: 20px; border: 1px solid rgba(0, 255, 204, 0.2); display: flex; align-items: flex-start; gap: 15px;
+}
+.step-number-badge {
+  width: 40px; height: 40px; background: linear-gradient(135deg, #00ffcc, #00ccff); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700; color: #121212; flex-shrink: 0;
+}
+.step-content h4 { font-size: 1rem; font-weight: 600; color: #ffffff; margin-bottom: 8px; }
+.step-content p { font-size: 0.9rem; color: #b0b0b0; margin: 0; }
+.faq-container { margin-top: 20px; }
+.faq-item { background: #1a1a1a; border-radius: 12px; padding: 18px; margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.05); }
+.faq-question { font-size: 1rem; font-weight: 600; color: #ffffff; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.faq-question i { color: #00ffcc; font-size: 0.9rem; }
+.faq-answer { font-size: 0.9rem; color: #b0b0b0; line-height: 1.6; margin-left: 25px; }
+.trust-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; }
+.trust-badge {
+  background: rgba(0, 255, 204, 0.1); border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 10px; padding: 12px 18px;
+  display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #00ffcc;
+}
+.trust-badge i { font-size: 1rem; }
+
+@media (min-width: 768px) {
+  .games-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* CTA Button */
+.cta-button {
+  display: inline-block;
+  background: #00ffcc;
+  color: #000;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  margin: 20px 0;
+  transition: background 0.3s;
+}
+.cta-button:hover {
+  background: #00ccaa;
+}
+
+/* Footer */
+.footer {
+  background: #111;
+  color: #fff;
+  padding: 40px 0 20px;
+  text-align: center;
+}
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-section h3 {
+  margin-bottom: 10px;
+}
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-section ul li {
+  margin: 5px 0;
+}
+.footer-section ul li a {
+  color: #00ffcc;
+  text-decoration: none;
+}
+.footer-section ul li a:hover {
+  text-decoration: underline;
+}
+.social-links a {
+  color: #00ffcc;
+  margin: 0 10px;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+.social-links a:hover {
+  color: #fff;
+}
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00ffcc;
+  color: #000;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.back-to-top:hover {
+  background: #00ccaa;
+}
+  </style>
 </head>
 <body>
   <div class="container">
@@ -120,6 +364,7 @@
       <p class="hero-description">
         Download modded APK files for the latest premium mobile games. Get unlimited features, unlocked content, and premium versions of your favorite games - all completely free!
       </p>
+      <a href="#games" class="cta-button">Browse Games</a>
       <div class="hero-features">
         <div class="hero-feature"><i class="fas fa-check-circle"></i><span>100% Free Downloads</span></div>
         <div class="hero-feature"><i class="fas fa-shield-alt"></i><span>Safe & Verified</span></div>
@@ -138,10 +383,10 @@
       <button class="view-btn" id="listBtn" onclick="switchView('list')"><i class="fas fa-list"></i></button>
     </div>
 
-    <div class="games-grid" id="gamesGrid"></div>
+    <div class="games-grid" id="games"></div>
     <div class="games-list" id="gamesList"></div>
 
-    <section class="content-section">
+    <section class="content-section" id="how-it-works">
       <h2>How to Download Premium Games for Free</h2>
       <p>Get access to premium mobile games completely free! Our platform offers modded APK files for the most popular games including GTA V Mobile, Fortnite Mobile, BeamNG.drive, and many more. Follow these simple steps to download your favorite premium games.</p>
       <div class="how-it-works-steps">
@@ -182,7 +427,7 @@
       </div>
     </section>
 
-    <section class="content-section">
+    <section class="content-section" id="faq">
       <h2>Frequently Asked Questions About Modded Games</h2>
       <p>Have questions about downloading premium games? Find answers to the most common questions below.</p>
       <div class="faq-container">
@@ -279,6 +524,353 @@
     </div>
   </div>
 
-  <script src="assets/js/main.js"></script>
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="back-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About m4d.fun</h3>
+        <p>Your go-to source for premium modded mobile games. Download unlimited, safe, and free.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-links">
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 m4d.fun. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+const gamesData = [
+  { id: 20, title: "Lamar Idle Vlogger Mod APK (Unlimited Money)", image: "https://i.postimg.cc/RFv1XQFq/Lamar-Idle-Vlogger-Mod-APK.webp", version: "v1.4.2", rating: 4.4, downloads: "19K+" },
+  { id: 1, title: "BeamNG.drive Mobile", image: "https://avatars.githubusercontent.com/u/6404024?s=280&v=4", version: "v0.32.0.0", rating: 4.8, downloads: "50K+" },
+  { id: 2, title: "GTA V Mobile", image: "https://i.pinimg.com/736x/8f/01/03/8f010359c57da7850e723fa17a53b55e.jpg", version: "v1.0.3095/1.68", rating: 4.9, downloads: "120K+" },
+  { id: 19, title: "Speed Stars Mod", image: "https://i.postimg.cc/q7LSqhJv/Hard.png", version: "v2.1.0", rating: 4.2, downloads: "24K+" },
+  { id: 3, title: "Forza Horizon Mobile", image: "https://images.seeklogo.com/logo-png/40/1/forza-horizon-5-logo-png_seeklogo-406612.png", version: "v2.0.1", rating: 4.7, downloads: "55K+" },
+  { id: 4, title: "RUSH: Xtreme MOD  (Unlocked)", image: "https://images.appmagic.ro/?uri=https://play-lh.googleusercontent.com/9G5Qe9rlbCNdRD-PrK5bn5s9v0ApdtR-d-Tog_sOyWoYT4tecoPhEBjX_23Qeyzluae5_9A1YG8rCpHfLzyXig=s98-c", version: "v1.3.1", rating: 4.6, downloads: "35K+" },
+  { id: 5, title: "Dispatch Mobile", image: "https://i.postimg.cc/QNc8k2D9/Dispatch-art-jpg.webp", version: "v1.5.2", rating: 4.7, downloads: "28K+" },
+  { id: 6, title: "Red Dead Redemption", image: "https://i.postimg.cc/Vs3RH8Y1/unnamed.webp", version: "v1.5.2", rating: 4.9, downloads: "75K+" },
+  { id: 7, title: "Am a Monkey (No Ads", image: "https://i.postimg.cc/Qx3V7hRX/Untitled-design-1.png", version: "v1.0.4", rating: 4.5, downloads: "22K+" },
+  { id: 8, title: "8 Ball Pool Aimbot MOD", image: "https://www.latestmodapks.com/wp-content/uploads/2022/10/com.miniclip.eightballpool.jpg", version: "v5.15.2", rating: 4.4, downloads: "45K+" },
+  { id: 9, title: "Gorilla Tag Mobile", image: "https://img.tapimg.net/market/images/181c7a899a46a98dd93d07da84847a5f.jpg", version: "v1.2.5", rating: 4.3, downloads: "18K+" },
+  { id: 10, title: "Euro Truck Simulator 2", image: "https://i.pinimg.com/564x/32/ae/e5/32aee5919f1c4e81da58627d21b3323a.jpg", version: "v1.48.2", rating: 4.6, downloads: "40K+" },
+  { id: 11, title: "Highway Racer Pro", image: "https://play-lh.googleusercontent.com/hNugD_lGLRZAWnEss_Ue66J2NH2M2rNLJODh8Bpr8EGyOYZe05epjQ3EK2WdtmJsOoc", version: "v4.5.1", rating: 4.2, downloads: "30K+" },
+  { id: 12, title: "Hitman: Absolution Mobile", image: "https://play-lh.googleusercontent.com/sZ2vcnPx2dGILYDxX4e6VIFZq1lWdBvekVFSGphJa2Lnreo7ghXsaP11nIKq77Rl775JN6zgf7v9whOmKwpWMoY", version: "v3.14.1", rating: 4.5, downloads: "25K+" },
+  { id: 13, title: "Rooftops & Alleys", image: "https://i.postimg.cc/W1bm7TRt/Fh-T2ixl-Wyl9-TPswg-KLF0j-Pp9j-Nuq.png", version: "v2.3.0", rating: 4.4, downloads: "20K+" },
+  { id: 14, title: "Fortnite Mobile", image: "https://pbs.twimg.com/media/GxGV7xRXMAAPHh0.jpg", version: "v27.10.0", rating: 4.8, downloads: "90K+" },
+  { id: 15, title: "WWE 2K25 Mobile", image: "https://play-lh.googleusercontent.com/uD9hXMYt6fqwiSnTd6vqj0pi5JfTvIHbZR9OFllSPcuG_V1iGwNOJ26wwXd1b0z89zp-=w240-h480-rw", version: "v1.5.0", rating: 4.6, downloads: "35K+" },
+  { id: 16, title: "CarX Street", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4pqJlpezWAKhl0bwwWy1GIc_zVOGXjHvz9Q&s", version: "v1.2.3", rating: 4.5, downloads: "42K+" },
+  { id: 17, title: "Baseball 9 Mod", image: "https://i.postimg.cc/j254nVy3/e21d66a4-4e0a-4a5b-9521-397d4cb5d383.png", version: "v3.8.0", rating: 4.3, downloads: "28K+" },
+  { id: 18, title: "Hollow Knight Mobile", image: "https://i.postimg.cc/Vvj4G8nC/icon.webp", version: "v1.5.78", rating: 4.8, downloads: "38K+" },
+  { id: 21, title: "Snake Clash", image: "https://i.postimg.cc/ZqFX5FJT/71dded537746e75207450ca40f71d089ff02df7c47300f91f5a7522ec910bdc3_200.webp", version: "v3.7.1", rating: 4.1, downloads: "31K+" },
+  { id: 22, title: "Racing Ultimate", image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80", version: "v2.0.5", rating: 4.3, downloads: "26K+" },
+  { id: 23, title: "Project Brutality Doom", image: "https://static.doomworld.com/monthly_2023_06/51f3b0e3dcd1cf493fe29ac632aeec39.jpg.88231b2c110b31f13555d274b67c763e.jpg", version: "v0.1.0", rating: 4.7, downloads: "15K+" }
+];
+
+// URL helpers
+function getUrlParameter(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  const results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+let trackingSub1 = getUrlParameter('sub1') || '';
+let clickId = getUrlParameter('clickid') || getUrlParameter('click_id') || '';
+let transactionId = getUrlParameter('transaction_id') || '';
+let urlParams = {};
+const urlSearchParams = new URLSearchParams(window.location.search);
+for (const [key, value] of urlSearchParams) urlParams[key] = value;
+
+function getLockerApiUrl() {
+  const baseUrl = 'https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php';
+  const userId = '504359';
+  const apiKey = '3b17a09c1ca2bba2d52ffadab4894374';
+  const s1Value = currentGame ? currentGame.title : (trackingSub1 || '');
+  const s2 = urlParams.sub2 || urlParams.s2 || '';
+  return `${baseUrl}?user_id=${userId}&api_key=${apiKey}&s1=${encodeURIComponent(s1Value)}&s2=${encodeURIComponent(s2)}`;
+}
+
+let allOffers = [];
+let currentGame = null;
+let currentPlatform = null;
+
+async function fetchOffers() {
+  try {
+    const apiUrl = getLockerApiUrl();
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    if (data && data.offers && Array.isArray(data.offers)) {
+      allOffers = data.offers;
+    } else if (Array.isArray(data)) {
+      allOffers = data;
+    }
+  } catch (error) {
+    console.error('Error fetching offers:', error);
+    allOffers = [];
+  }
+}
+
+function renderStars(rating) {
+  let stars = '';
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5;
+  for (let i = 0; i < 5; i++) {
+    if (i < full) stars += '<i class="fas fa-star"></i>';
+    else if (i === full && half) stars += '<i class="fas fa-star-half-alt"></i>';
+    else stars += '<i class="far fa-star"></i>';
+  }
+  return stars;
+}
+
+function renderGamesGrid(games = gamesData) {
+  const grid = document.getElementById('games');
+  grid.innerHTML = '';
+  games.forEach(game => {
+    const card = document.createElement('div');
+    card.className = 'game-card';
+    card.onclick = () => openPlatformModal(game);
+    card.innerHTML = `
+      <img src="${game.image}" alt="${game.title}" class="game-icon" onerror="this.src='https://via.placeholder.com/80/1e1e1e/ffffff?text=Game'">
+      <div class="game-info">
+        <div class="game-title">${game.title}</div>
+        <div class="game-version">${game.version}</div>
+        <div class="game-rating">${renderStars(game.rating)}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderGamesList(games = gamesData) {
+  const list = document.getElementById('gamesList');
+  list.innerHTML = '';
+  games.forEach(game => {
+    const item = document.createElement('div');
+    item.className = 'list-item';
+    item.onclick = () => openPlatformModal(game);
+    item.innerHTML = `
+      <div class="list-item-icon">
+        <img src="${game.image}" alt="${game.title}" onerror="this.src='https://via.placeholder.com/150/1a1a1a/ffffff?text=Game'">
+      </div>
+      <div class="list-item-info">
+        <div class="list-item-title">${game.title}</div>
+        <div class="list-item-version">${game.version}</div>
+        <div class="list-item-rating">${renderStars(game.rating)}</div>
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+function renderGames() {
+  const isGrid = document.getElementById('gridBtn').classList.contains('active');
+  if (isGrid) renderGamesGrid(); else renderGamesList();
+}
+
+function switchView(view) {
+  const gridBtn = document.getElementById('gridBtn');
+  const listBtn = document.getElementById('listBtn');
+  const grid = document.getElementById('games');
+  const list = document.getElementById('gamesList');
+
+  if (view === 'grid') {
+    gridBtn.classList.add('active');
+    listBtn.classList.remove('active');
+    grid.style.display = 'grid';
+    list.classList.remove('active');
+    renderGamesGrid();
+  } else {
+    listBtn.classList.add('active');
+    gridBtn.classList.remove('active');
+    grid.style.display = 'none';
+    list.classList.add('active');
+    renderGamesList();
+  }
+}
+
+function openPlatformModal(game) {
+  currentGame = game;
+  const modal = document.getElementById('platformModal');
+  const icon = document.getElementById('platformGameIcon');
+  const title = document.getElementById('platformGameTitle');
+
+  icon.src = game.image;
+  icon.onerror = function () { this.src = 'https://via.placeholder.com/150/1a1a1a/ffffff?text=Game'; };
+  title.textContent = game.title;
+
+  document.body.classList.add('modal-open');
+  modal.classList.add('active');
+}
+
+function closePlatformModal() {
+  const modal = document.getElementById('platformModal');
+  modal.classList.remove('active');
+  document.body.classList.remove('modal-open');
+}
+
+function selectPlatform(platform) {
+  currentPlatform = platform;
+  closePlatformModal();
+  setTimeout(() => openLocker(), 300);
+}
+
+function openLocker() {
+  if (!currentGame) return;
+  const modal = document.getElementById('lockerModal');
+  const logo = document.getElementById('lockerGameLogo');
+  const title = document.getElementById('lockerGameTitle');
+
+  logo.src = currentGame.image;
+  logo.onerror = function () { this.src = 'https://via.placeholder.com/150/1a1a1a/ffffff?text=Game'; };
+  title.textContent = currentGame.title;
+
+  fetchOffers().then(() => displayOffers());
+  document.body.classList.add('modal-open');
+  modal.classList.add('active');
+}
+
+function closeLocker() {
+  const modal = document.getElementById('lockerModal');
+  modal.classList.remove('active');
+  document.body.classList.remove('modal-open');
+}
+
+function addParamsToUrl(url, params) {
+  if (!url || url === '#') return url;
+  try {
+    const urlObj = new URL(url);
+    Object.keys(params).forEach(key => { if (params[key]) urlObj.searchParams.set(key, params[key]); });
+    return urlObj.toString();
+  } catch (e) {
+    const separator = url.includes('?') ? '&' : '?';
+    const paramString = Object.keys(params)
+      .filter(key => params[key])
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+      .join('&');
+    return url + separator + paramString;
+  }
+}
+
+function displayOffers() {
+  const offersList = document.getElementById('offersList');
+  if (!allOffers || allOffers.length === 0) {
+    offersList.innerHTML = '<div class="no-offers">No offers available at the moment. Please try again later.</div>';
+    return;
+  }
+
+  // Show only first 2 offers
+  const offersToShow = allOffers.slice(0, 2);
+  offersList.innerHTML = '';
+
+  offersToShow.forEach((offer, index) => {
+    const button = document.createElement('button');
+    button.className = 'offer-button';
+
+    const offerImage = offer.network_icon || offer.image || offer.logo || offer.icon || offer.thumbnail || 'https://via.placeholder.com/40/00ff88/000000?text=Offer';
+    const offerText = offer.anchor || offer.name || offer.title || `Offer ${index + 1}`;
+    let offerUrl = offer.url || offer.link || '#';
+
+    if (offerUrl !== '#') {
+      const finalSub1 = currentGame ? currentGame.title : (trackingSub1 || '');
+      const trackingParams = {};
+      if (finalSub1) trackingParams.sub1 = finalSub1;
+      if (urlParams.sub2 || urlParams.s2) trackingParams.sub2 = urlParams.sub2 || urlParams.s2;
+      if (urlParams.sub3 || urlParams.s3) trackingParams.sub3 = urlParams.sub3 || urlParams.s3;
+      if (urlParams.sub4 || urlParams.s4) trackingParams.sub4 = urlParams.sub4 || urlParams.s4;
+      if (urlParams.sub5 || urlParams.s5) trackingParams.sub5 = urlParams.sub5 || urlParams.s5;
+      if (clickId || transactionId) {
+        trackingParams.clickid = clickId || transactionId;
+        trackingParams.transaction_id = transactionId || clickId;
+      }
+      console.log('Adding sub1 to offer URL:', { sub1: finalSub1, game: currentGame ? currentGame.title : 'No game', trackingSub1, offerUrl });
+      offerUrl = addParamsToUrl(offerUrl, trackingParams);
+    }
+
+    button.innerHTML = `
+      <img src="${offerImage}" alt="${offerText}" class="offer-logo" onerror="this.src='https://via.placeholder.com/40/00ff88/000000?text=Offer'">
+      <span class="offer-text">${offerText}</span>`;
+    button.onclick = () => openOffer(offerUrl, offer);
+    offersList.appendChild(button);
+  });
+}
+
+function openOffer(url, offer) {
+  if (url && url !== '#') {
+    window.open(url, '_blank');
+    console.log('Offer clicked:', {
+      url,
+      game: currentGame ? currentGame.title : '',
+      sub1: currentGame ? currentGame.title : (trackingSub1 || ''),
+      clickid: clickId || transactionId
+    });
+  }
+}
+
+// Search
+document.getElementById('searchInput').addEventListener('input', function (e) {
+  const term = e.target.value.toLowerCase().trim();
+  if (term === '') { renderGames(); return; }
+  const filtered = gamesData.filter(game => game.title.toLowerCase().includes(term));
+  const isGrid = document.getElementById('gridBtn').classList.contains('active');
+  if (isGrid) renderGamesGrid(filtered); else renderGamesList(filtered);
+});
+
+// Close modals on outside click
+document.getElementById('platformModal').addEventListener('click', e => { if (e.target === e.currentTarget) closePlatformModal(); });
+document.getElementById('lockerModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeLocker(); });
+
+// Disable right-click
+document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+
+// Disable double-tap zoom
+let lastTouchEnd = 0;
+document.addEventListener('touchend', e => {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Tracking Info:', { sub1: trackingSub1, clickid: clickId, transaction_id: transactionId, urlParams });
+  renderGames();
+  fetchOffers().catch(err => console.error('Error fetching offers (games will still show):', err));
+});
+
+// Expose functions to global
+window.switchView = switchView;
+window.openPlatformModal = openPlatformModal;
+window.closePlatformModal = closePlatformModal;
+window.selectPlatform = selectPlatform;
+window.closeLocker = closeLocker;
+window.openOffer = openOffer;
+
+// Back to top functionality
+window.onscroll = function() {scrollFunction()};
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("backToTop").style.display = "block";
+  } else {
+    document.getElementById("backToTop").style.display = "none";
+  }
+}
+function scrollToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+  </script>
 </body>
 </html>
